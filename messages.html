@@ -238,8 +238,13 @@
             `;
             
             try {
+<<<<<<< HEAD
                 const snapshot = await db.collection('contactMessages')
                     .orderBy('timestamp', 'desc')
+=======
+                const snapshot = await db.collection('messages')  // Changed from 'contactMessages' to 'messages'
+                    .orderBy('createdAt', 'desc')  // Changed from 'timestamp' to 'createdAt' to match your contact form
+>>>>>>> 04cf330 (updatePage)
                     .get();
                 
                 if (snapshot.empty) {
@@ -262,7 +267,11 @@
                 snapshot.forEach(doc => {
                     const message = doc.data();
                     const messageId = doc.id;
+<<<<<<< HEAD
                     const date = message.timestamp ? message.timestamp.toDate() : new Date();
+=======
+                    const date = message.createdAt ? message.createdAt.toDate() : new Date();  // Changed from 'timestamp' to 'createdAt'
+>>>>>>> 04cf330 (updatePage)
                     const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                     
                     if (!message.read) {
@@ -331,7 +340,11 @@
         // View message details
         async function viewMessage(messageId) {
             try {
+<<<<<<< HEAD
                 const doc = await db.collection('contactMessages').doc(messageId).get();
+=======
+                const doc = await db.collection('messages').doc(messageId).get();  // Changed from 'contactMessages' to 'messages'
+>>>>>>> 04cf330 (updatePage)
                 
                 if (!doc.exists) {
                     alert('Message not found');
@@ -339,7 +352,11 @@
                 }
                 
                 const message = doc.data();
+<<<<<<< HEAD
                 const date = message.timestamp ? message.timestamp.toDate() : new Date();
+=======
+                const date = message.createdAt ? message.createdAt.toDate() : new Date();  // Changed from 'timestamp' to 'createdAt'
+>>>>>>> 04cf330 (updatePage)
                 const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
                 
                 // Update modal content
@@ -367,7 +384,11 @@
                 
                 // Mark as read
                 if (!message.read) {
+<<<<<<< HEAD
                     await db.collection('contactMessages').doc(messageId).update({
+=======
+                    await db.collection('messages').doc(messageId).update({  // Changed from 'contactMessages' to 'messages'
+>>>>>>> 04cf330 (updatePage)
                         read: true
                     });
                     
@@ -393,7 +414,11 @@
             }
             
             try {
+<<<<<<< HEAD
                 const docRef = db.collection('contactMessages').doc(messageId);
+=======
+                const docRef = db.collection('messages').doc(messageId);  // Changed from 'contactMessages' to 'messages'
+>>>>>>> 04cf330 (updatePage)
                 const doc = await docRef.get();
                 
                 if (!doc.exists) {

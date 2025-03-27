@@ -41,6 +41,13 @@
                     <i class="fas fa-briefcase mr-3"></i>
                     Portfolio Projects
                 </a>
+<<<<<<< HEAD
+=======
+                <a href="messages.html" class="flex items-center py-3 px-6 hover:bg-indigo-700 transition-colors">
+                    <i class="fas fa-envelope mr-3"></i>
+                    Messages
+                </a>
+>>>>>>> 04cf330 (updatePage)
                 <a href="#" id="logoutBtn" class="flex items-center py-3 px-6 hover:bg-indigo-700 transition-colors mt-auto">
                     <i class="fas fa-sign-out-alt mr-3"></i>
                     Logout
@@ -542,6 +549,7 @@
             }
             postData.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
             
+<<<<<<< HEAD
             // Save to Firestore
             let savePromise;
             
@@ -568,6 +576,56 @@
                     saveBtn.disabled = false;
                     saveBtn.innerHTML = 'Save Post';
                 });
+=======
+            // For existing posts (updates)
+            if (postId) {
+                blogCollection.doc(postId).update(postData)
+                    .then(() => {
+                        showNotification('Post updated successfully!', 'Success', 'success');
+                        showList();
+                        // Reset button state
+                        saveBtn.disabled = false;
+                        saveBtn.innerHTML = 'Save Post';
+                    })
+                    .catch((error) => {
+                        console.error("Error updating post:", error);
+                        showNotification('Error updating post: ' + error.message, 'Error', 'error');
+                        
+                        // Reset button
+                        saveBtn.disabled = false;
+                        saveBtn.innerHTML = 'Save Post';
+                    });
+            } 
+            // For new posts - use add() to let Firebase generate a unique ID
+            else {
+                blogCollection.add(postData)
+                    .then(() => {
+                        showNotification('Post created successfully!', 'Success', 'success');
+                        showList();
+                        // Reset button state
+                        saveBtn.disabled = false;
+                        saveBtn.innerHTML = 'Save Post';
+                    })
+                    .catch((error) => {
+                        console.error("Error saving post:", error);
+                        showNotification('Error saving post: ' + error.message, 'Error', 'error');
+                        
+                        // Reset button
+                        saveBtn.disabled = false;
+                        saveBtn.innerHTML = 'Save Post';
+                    });
+            }
+        }
+        
+        // Helper function to create a slug from a title
+        function createSlugFromTitle(title) {
+            return title
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '') // Remove special characters
+                .replace(/\s+/g, '-') // Replace spaces with hyphens
+                .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+                .trim(); // Trim leading/trailing spaces
+>>>>>>> 04cf330 (updatePage)
         }
         
         // Event Listeners

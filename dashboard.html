@@ -152,6 +152,7 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     
     <script>
         // Firebase configuration
@@ -382,5 +383,238 @@
             sidebar.classList.toggle('h-screen');
         });
     </script>
+=======
+        <!-- Single consolidated script -->
+        <script>
+            // Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyD5rUpAHDBwos7UCE9go2W2AgY-vAeaLd4",
+                authDomain: "vertax-marketing.firebaseapp.com",
+                projectId: "vertax-marketing",
+                storageBucket: "vertax-marketing.appspot.com",
+                messagingSenderId: "307006172894",
+                appId: "1:307006172894:web:6b724d5b8adffc5e13dc4f",
+                measurementId: "G-FTMVVRFX9P"
+            };
+            
+            // Initialize Firebase
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+            const db = firebase.firestore();
+        
+            // Check if user is logged in
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (!user) {
+                    window.location.href = 'login.html';
+                } else {
+                    // Update welcome message
+                    const userData = JSON.parse(localStorage.getItem('adminUser')) || { displayName: 'Admin' };
+                    document.getElementById('welcomeMessage').textContent = `Welcome, ${userData.displayName}`;
+                    
+                    // Load dashboard data
+                    updateCounts();
+                    updateRecentActivity();
+                }
+            });
+            
+            // Logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                firebase.auth().signOut().then(() => {
+                    localStorage.removeItem('adminLoggedIn');
+                    localStorage.removeItem('adminUser');
+                    // Force redirect to login page with timestamp to prevent caching
+                    window.location.href = 'login.html?t=' + new Date().getTime();
+                }).catch((error) => {
+                    console.error('Error signing out: ', error);
+                    alert('Error signing out. Please try again.');
+                    // Fallback redirect if error occurs
+                    window.location.href = 'login.html';
+                });
+            });
+            
+            // Load data counts
+            async function updateCounts() {
+                try {
+                    // Get blog posts count
+                    const blogSnapshot = await db.collection('blogPosts').get();
+                    document.getElementById('blogCount').textContent = blogSnapshot.size || '0';
+                    
+                    // Get projects count
+                    const projectSnapshot = await db.collection('portfolioProjects').get();
+                    document.getElementById('projectCount').textContent = projectSnapshot.size || '0';
+                    
+                    // Get messages count with error handling
+                    try {
+                        const messageSnapshot = await db.collection('messages').get();
+                        document.getElementById('messageCount').textContent = messageSnapshot.size || '0';
+                    } catch (messageError) {
+                        console.error("Error fetching messages:", messageError);
+                        document.getElementById('messageCount').textContent = "Error";
+                    }
+                } catch (error) {
+                    console.error("Error fetching counts:", error);
+                    document.getElementById('blogCount').textContent = "Error";
+                    document.getElementById('projectCount').textContent = "Error";
+                    document.getElementById('messageCount').textContent = "Error";
+                }
+            }
+            
+            // Update recent activity
+            async function updateRecentActivity() {
+                const recentActivityEl = document.getElementById('recentActivity');
+                
+                try {
+                    // Get recent blog posts
+                    const blogSnapshot = await db.collection('blogPosts')
+                        .orderBy('createdAt', 'desc')
+                        .limit(3)
+                        .get();
+                    
+                    // Get recent projects
+                    const projectSnapshot = await db.collection('portfolioProjects')
+                        .orderBy('createdAt', 'desc')
+                        .limit(3)
+                        .get();
+                    
+                    // Combine and sort items
+                    const allItems = [];
+                    
+                    blogSnapshot.forEach(doc => {
+                        const data = doc.data();
+                        allItems.push({
+                            type: 'blog',
+                            title: data.title || 'Untitled Post',
+                            date: data.createdAt ? data.createdAt.toDate() : new Date(),
+                            id: doc.id
+                        });
+                    });
+                    
+                    projectSnapshot.forEach(doc => {
+                        const data = doc.data();
+                        allItems.push({
+                            type: 'project',
+                            title: data.title || 'Untitled Project',
+                            date: data.createdAt ? data.createdAt.toDate() : new Date(),
+                            id: doc.id
+                        });
+                    });
+                    
+                    // Try to get messages with error handling
+                    try {
+                        const messageSnapshot = await db.collection('messages')
+                            .orderBy('createdAt', 'desc')
+                            .limit(3)
+                            .get();
+                            
+                        messageSnapshot.forEach(doc => {
+                            const data = doc.data();
+                            allItems.push({
+                                type: 'message',
+                                title: data.subject || 'Contact from ' + (data.name || 'Unknown'),
+                                date: data.createdAt ? data.createdAt.toDate() : new Date(),
+                                id: doc.id,
+                                sender: data.name || 'Unknown',
+                                read: !!data.read
+                            });
+                        });
+                    } catch (messageError) {
+                        console.error("Error fetching recent messages:", messageError);
+                        // Continue without messages
+                    }
+                    
+                    // Sort by date (newest first)
+                    allItems.sort((a, b) => b.date - a.date);
+                    
+                    // Display recent items
+                    if (allItems.length > 0) {
+                        recentActivityEl.innerHTML = '';
+                        allItems.slice(0, 5).forEach(item => {
+                            // Calculate time ago
+                            const now = new Date();
+                            const diffMs = now - item.date;
+                            const diffMins = Math.floor(diffMs / 60000);
+                            const diffHours = Math.floor(diffMins / 60);
+                            const diffDays = Math.floor(diffHours / 24);
+                            
+                            let timeAgo;
+                            if (diffDays > 0) {
+                                timeAgo = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+                            } else if (diffHours > 0) {
+                                timeAgo = `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+                            } else if (diffMins > 0) {
+                                timeAgo = `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+                            } else {
+                                timeAgo = 'Just now';
+                            }
+                            
+                            let iconClass, bgColor, textColor, actionUrl, actionText;
+                            
+                            switch(item.type) {
+                                case 'blog':
+                                    iconClass = 'fa-blog';
+                                    bgColor = 'indigo';
+                                    textColor = 'indigo';
+                                    actionUrl = `blog-posts.html?id=${item.id}`;
+                                    actionText = 'View Post';
+                                    break;
+                                case 'project':
+                                    iconClass = 'fa-briefcase';
+                                    bgColor = 'indigo';
+                                    textColor = 'indigo';
+                                    actionUrl = `portfolio-projects.html?id=${item.id}`;
+                                    actionText = 'View Project';
+                                    break;
+                                case 'message':
+                                    iconClass = 'fa-envelope';
+                                    bgColor = 'green';
+                                    textColor = 'green';
+                                    actionUrl = `messages.html?id=${item.id}`;
+                                    actionText = 'View Message';
+                                    break;
+                            }
+                            
+                            const activityItem = document.createElement('div');
+                            activityItem.className = 'flex items-start py-3 border-b border-gray-100 last:border-0';
+                            activityItem.innerHTML = `
+                                <div class="bg-${bgColor}-100 p-2 rounded-full">
+                                    <i class="fas ${iconClass} text-${textColor}-600"></i>
+                                </div>
+                                <div class="ml-3 flex-1">
+                                    <div class="flex justify-between">
+                                        <p class="text-sm font-medium text-gray-900">${item.title}</p>
+                                        <span class="text-xs text-gray-500">${timeAgo}</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-1">
+                                        ${item.type === 'message' ? `From: ${item.sender}` : ''}
+                                        ${item.type === 'message' && !item.read ? '<span class="bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded-full ml-2">Unread</span>' : ''}
+                                    </p>
+                                    <a href="${actionUrl}" class="text-${textColor}-600 text-xs mt-1 inline-block hover:underline">${actionText}</a>
+                                </div>
+                            `;
+                            
+                            recentActivityEl.appendChild(activityItem);
+                        });
+                    } else {
+                        recentActivityEl.innerHTML = `
+                            <div class="text-center py-8">
+                                <i class="fas fa-info-circle text-gray-400 text-4xl mb-3"></i>
+                                <p class="text-gray-500">No recent activity found</p>
+                            </div>
+                        `;
+                    }
+                } catch (error) {
+                    console.error("Error fetching recent activity:", error);
+                    recentActivityEl.innerHTML = `
+                        <div class="text-center py-8">
+                            <i class="fas fa-exclamation-circle text-red-400 text-4xl mb-3"></i>
+                            <p class="text-gray-500">Error loading recent activity</p>
+                        </div>
+                    `;
+                }
+            }
+        </script>
+>>>>>>> 04cf330 (updatePage)
 </body>
 </html>
