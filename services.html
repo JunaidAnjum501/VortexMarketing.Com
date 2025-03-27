@@ -38,7 +38,22 @@
         .animate-float-slow {
             animation: float-slow 10s ease-in-out infinite;
         }
-
+/* Add these dropdown styles to ensure proper hover functionality */
+        .group:hover .group-hover\:opacity-100 {
+            opacity: 1;
+        }
+        
+        .group:hover .group-hover\:visible {
+            visibility: visible;
+        }
+        
+        .opacity-0 {
+            opacity: 0;
+        }
+        
+        .invisible {
+            visibility: hidden;
+        }
         /* Custom Button Styles */
         .btn {
             display: inline-block;
@@ -83,21 +98,58 @@
         }
     </style>
 </head>
-<body>
-    <!-- Header/Navigation -->
-    <header class="bg-white shadow-md fixed w-full z-50">
-        <div class="container mx-auto px-6 py-3">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <a href="index.html" class="text-2xl font-bold text-indigo-600">Vortex<span class="text-gray-800">Marketing</span></a>
+<body class="font-[Poppins] bg-gray-50">
+    <!-- Header Section -->
+    <header class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="logo">
+                    <h1 class="text-2xl font-bold">Vortex<span class="text-indigo-600">Marketing</span></h1>
                 </div>
                 
-                <nav class="hidden md:flex space-x-10">
+                <nav class="hidden md:flex space-x-8">
                     <a href="index.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Home</a>
-                    <a href="services.html" class="text-indigo-600 font-medium">Services</a>
                     <a href="about.html" class="text-gray-600 hover:text-indigo-600 transition-colors">About</a>
+                    
+                    <!-- Services Dropdown -->
+                    <div class="relative group">
+                        <a href="services.html" class="text-indigo-600 font-medium flex items-center">
+                            Services <i class="fas fa-chevron-down text-xs mt-1 ml-1"></i>
+                        </a>
+                        <div class="absolute left-0 mt-2 w-64 rounded-lg shadow-xl bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2">
+                                <a href="web-development.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-laptop-code mr-3 text-indigo-500"></i>
+                                    <span>Web Development</span>
+                                </a>
+                                <a href="digital-marketing.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-bullhorn mr-3 text-indigo-500"></i>
+                                    <span>Digital Marketing</span>
+                                </a>
+                                <a href="seo-services.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-search mr-3 text-indigo-500"></i>
+                                    <span>SEO Services</span>
+                                </a>
+                                <a href="content-writing.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-pen-fancy mr-3 text-indigo-500"></i>
+                                    <span>Content Writing</span>
+                                </a>
+                                <a href="logo-design.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-paint-brush mr-3 text-indigo-500"></i>
+                                    <span>Logo Design</span>
+                                </a>
+                                <a href="ui-ux-design.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-desktop mr-3 text-indigo-500"></i>
+                                    <span>UI/UX Design</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <a href="portfolio.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
-                    <a href="testimonials.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Testimonials</a>
+                    
+                    <!-- Blog Link (without dropdown) -->
+                    <a href="blog.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Blog</a>
+                    
                     <a href="contact.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
                 </nav>
                 
@@ -114,10 +166,37 @@
             
             <div class="mobile-menu hidden md:hidden mt-4 py-4 border-t">
                 <a href="index.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Home</a>
-                <a href="services.html" class="block py-2 text-indigo-600 font-medium">Services</a>
                 <a href="about.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">About</a>
+                
+                <!-- Mobile Services Dropdown -->
+                <div class="mobile-dropdown py-2">
+                    <button class="mobile-dropdown-toggle flex items-center justify-between w-full text-left text-indigo-600 font-medium">
+                        Services <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-300"></i>
+                    </button>
+                    <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-2">
+                        <a href="web-development.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Web Development</a>
+                        <a href="digital-marketing.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Digital Marketing</a>
+                        <a href="seo-services.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">SEO Services</a>
+                        <a href="content-writing.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Content Writing</a>
+                        <a href="logo-design.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Logo Design</a>
+                        <a href="ui-ux-design.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">UI/UX Design</a>
+                    </div>
+                </div>
+                
                 <a href="portfolio.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
-                <a href="testimonials.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Testimonials</a>
+                
+                <!-- Mobile Blog Dropdown -->
+                <div class="mobile-dropdown py-2">
+                    <button class="mobile-dropdown-toggle flex items-center justify-between w-full text-left text-gray-600 hover:text-indigo-600 transition-colors">
+                        Blog <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-300"></i>
+                    </button>
+                    <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-2">
+                        <a href="blog-category-marketing.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Marketing Tips</a>
+                        <a href="blog-category-seo.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">SEO Strategies</a>
+                        <a href="blog-category-design.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Design Trends</a>
+                    </div>
+                </div>
+                
                 <a href="contact.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
                 <a href="contact.html" class="btn btn-primary mt-4 inline-block">Get a Quote</a>
             </div>
@@ -756,15 +835,16 @@
     <!-- AOS Animation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     
-    <!-- Custom JavaScript -->
+        <!-- Add this script before the closing body tag -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // Initialize AOS Animation Library
+        // Initialize AOS
         AOS.init({
-            once: true,
             duration: 800,
-            easing: 'ease-in-out'
+            easing: 'ease-in-out',
+            once: true
         });
-
+        
         // Mobile Menu Toggle
         const hamburger = document.querySelector('.hamburger');
         const mobileMenu = document.querySelector('.mobile-menu');
@@ -772,82 +852,41 @@
         hamburger.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
-
-        // Back to Top Button
-        const backToTopButton = document.getElementById('backToTop');
         
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.remove('opacity-0', 'invisible');
-                backToTopButton.classList.add('opacity-100', 'visible');
-            } else {
-                backToTopButton.classList.remove('opacity-100', 'visible');
-                backToTopButton.classList.add('opacity-0', 'invisible');
-            }
-        });
+        // Mobile Dropdown Toggles
+        const mobileDropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
         
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Testimonial Slider
-        const testimonialTrack = document.querySelector('.testimonial-track');
-        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
-        const prevButton = document.querySelector('.testimonial-prev');
-        const nextButton = document.querySelector('.testimonial-next');
-        const dots = document.querySelectorAll('.testimonial-dot');
-        
-        let currentIndex = 0;
-        const slideWidth = 100; // 100%
-        
-        // Set initial position
-        updateSlider();
-        
-        // Previous button click
-        prevButton.addEventListener('click', () => {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : testimonialSlides.length - 1;
-            updateSlider();
-        });
-        
-        // Next button click
-        nextButton.addEventListener('click', () => {
-            currentIndex = (currentIndex < testimonialSlides.length - 1) ? currentIndex + 1 : 0;
-            updateSlider();
-        });
-        
-        // Dot clicks
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentIndex = index;
-                updateSlider();
+        mobileDropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                const icon = toggle.querySelector('i');
+                
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
             });
         });
         
-        // Auto slide every 5 seconds
-        setInterval(() => {
-            currentIndex = (currentIndex < testimonialSlides.length - 1) ? currentIndex + 1 : 0;
-            updateSlider();
-        }, 5000);
-        
-        // Update slider position and active dot
-        function updateSlider() {
-            testimonialTrack.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+        // Ensure desktop dropdowns work on hover
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.group');
             
-            // Update active dot
-            dots.forEach((dot, index) => {
-                if (index === currentIndex) {
-                    dot.classList.add('bg-indigo-600');
-                    dot.classList.remove('bg-gray-300');
-                } else {
-                    dot.classList.add('bg-gray-300');
-                    dot.classList.remove('bg-indigo-600');
+            dropdowns.forEach(dropdown => {
+                const dropdownContent = dropdown.querySelector('.group-hover\\:opacity-100');
+                
+                if (dropdownContent) {
+                    dropdown.addEventListener('mouseenter', () => {
+                        dropdownContent.classList.remove('opacity-0', 'invisible');
+                        dropdownContent.classList.add('opacity-100', 'visible');
+                    });
+                    
+                    dropdown.addEventListener('mouseleave', () => {
+                        dropdownContent.classList.remove('opacity-100', 'visible');
+                        dropdownContent.classList.add('opacity-0', 'invisible');
+                    });
                 }
             });
-        }
-
+        });
+        
         // FAQ Toggles
         const faqToggles = document.querySelectorAll('.faq-toggle');
         
@@ -856,17 +895,51 @@
                 const content = toggle.nextElementSibling;
                 const icon = toggle.querySelector('i');
                 
-                // Toggle content visibility
                 content.classList.toggle('hidden');
-                
-                // Toggle icon
-                if (content.classList.contains('hidden')) {
-                    icon.classList.remove('fa-minus', 'rotate-45');
-                    icon.classList.add('fa-plus');
+                icon.classList.toggle('fa-plus');
+                icon.classList.toggle('fa-minus');
+                icon.classList.toggle('rotate-45');
+            });
+        });
+        
+        // Testimonial Slider
+        const track = document.querySelector('.testimonial-track');
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const nextButton = document.querySelector('.testimonial-next');
+        const prevButton = document.querySelector('.testimonial-prev');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        
+        let currentIndex = 0;
+        
+        function updateSlider() {
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.remove('bg-gray-300');
+                    dot.classList.add('bg-indigo-600');
                 } else {
-                    icon.classList.remove('fa-plus');
-                    icon.classList.add('fa-minus', 'rotate-45');
+                    dot.classList.remove('bg-indigo-600');
+                    dot.classList.add('bg-gray-300');
                 }
+            });
+        }
+        
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            updateSlider();
+        });
+        
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            updateSlider();
+        });
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateSlider();
             });
         });
     </script>

@@ -14,55 +14,6 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
-<<<<<<< HEAD
-</head>
-<body class="font-[Poppins] bg-gray-50">
-    <!-- Header/Navigation -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <a href="index.html" class="text-xl font-bold text-indigo-800">
-                        Vortex<span class="text-indigo-500">Marketing</span>
-                    </a>
-                </div>
-                
-                <nav class="hidden md:flex space-x-8">
-                    <a href="index.html#home" class="text-gray-700 hover:text-indigo-600 font-medium">Home</a>
-                    <a href="index.html#services" class="text-gray-700 hover:text-indigo-600 font-medium">Services</a>
-                    <a href="portfolio.html" class="text-gray-700 hover:text-indigo-600 font-medium">Portfolio</a>
-                    <a href="blog.html" class="text-indigo-600 font-medium">Blog</a>
-                    <a href="index.html#contact" class="text-gray-700 hover:text-indigo-600 font-medium">Contact</a>
-                </nav>
-                
-                <div class="md:hidden">
-                    <button id="mobileMenuBtn" class="text-gray-700 hover:text-indigo-600">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Mobile Menu -->
-            <div id="mobileMenu" class="md:hidden hidden pb-4">
-                <a href="index.html#home" class="block py-2 text-gray-700 hover:text-indigo-600 font-medium">Home</a>
-                <a href="index.html#services" class="block py-2 text-gray-700 hover:text-indigo-600 font-medium">Services</a>
-                <a href="portfolio.html" class="block py-2 text-gray-700 hover:text-indigo-600 font-medium">Portfolio</a>
-                <a href="blog.html" class="block py-2 text-indigo-600 font-medium">Blog</a>
-                <a href="index.html#contact" class="block py-2 text-gray-700 hover:text-indigo-600 font-medium">Contact</a>
-            </div>
-        </div>
-    </header>
-    
-    <!-- Blog Header -->
-    <section class="bg-indigo-700 text-white py-16">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mx-auto text-center">
-                <h1 class="text-3xl md:text-4xl font-bold mb-4">Our Blog</h1>
-                <p class="text-lg text-indigo-100">Stay updated with the latest marketing trends, tips, and insights</p>
-            </div>
-        </div>
-    </section>
-=======
     <style type="text/tailwindcss">
             @layer components {
                 .btn {
@@ -87,10 +38,10 @@
                     
                     <nav class="hidden md:flex space-x-8">
                         <a href="index.html" class="text-indigo-600 font-medium">Home</a>
-                        <a href="services.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Services</a>
                         <a href="about.html" class="text-gray-600 hover:text-indigo-600 transition-colors">About</a>
+                        <a href="services.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Services</a>
                         <a href="portfolio.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
-                        <a href="blog.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Testimonials</a>
+                        <a href="blog.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Blog</a>
                         <a href="contact.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
                     </nav>
                     
@@ -107,10 +58,10 @@
                 
                 <div class="mobile-menu hidden md:hidden mt-4 py-4 border-t">
                     <a href="index.html" class="block py-2 text-indigo-600 font-medium">Home</a>
-                    <a href="services.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Services</a>
                     <a href="about.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">About</a>
+                    <a href="services.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Services</a>
                     <a href="portfolio.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
-                    <a href="testimonials.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Testimonials</a>
+                    <a href="blog.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Blog</a>
                     <a href="contact.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
                     <a href="contact.html" class="btn btn-primary mt-4 inline-block">Get a Quote</a>
                 </div>
@@ -150,7 +101,6 @@
         </div>
     </div>
 </section>
->>>>>>> 04cf330 (updatePage)
     
     <!-- Blog Content -->
     <section class="py-12 md:py-16">
@@ -166,19 +116,11 @@
                         </div>
                         <select id="categoryFilter" class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
                             <option value="all">All Categories</option>
-<<<<<<< HEAD
-                            <option value="Digital Marketing">Digital Marketing</option>
-                            <option value="SEO">SEO</option>
-                            <option value="Social Media">Social Media</option>
-                            <option value="Content Strategy">Content Strategy</option>
-                            <option value="Email Marketing">Email Marketing</option>
-=======
                             <option value="SEO">SEO</option>
                             <option value="Digital Marketing">Digital Marketing</option>
                             <option value="Web Development">Web Development</option>
                             <option value="Content Writing">Content Writing</option>
                             <option value="Designing">Designing</option>
->>>>>>> 04cf330 (updatePage)
                         </select>
                     </div>
                     
@@ -203,19 +145,6 @@
                     
                     <!-- Pagination -->
                     <div id="pagination" class="mt-12 flex justify-center">
-<<<<<<< HEAD
-                        <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                            <button id="prevPage" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                <span class="sr-only">Previous</span>
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <div id="pageNumbers" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                                Page <span id="currentPage">1</span> of <span id="totalPages">1</span>
-                            </div>
-                            <button id="nextPage" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                <span class="sr-only">Next</span>
-                                <i class="fas fa-chevron-right"></i>
-=======
                         <nav class="inline-flex items-center space-x-4" aria-label="Pagination">
                             <button id="prevPage" class="flex items-center px-4 py-2 text-sm font-medium text-indigo-600 bg-white border border-indigo-200 rounded-lg hover:bg-indigo-50 hover:border-indigo-300 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
                                 <i class="fas fa-chevron-left mr-2"></i>
@@ -232,7 +161,6 @@
                             <button id="nextPage" class="flex items-center px-4 py-2 text-sm font-medium text-indigo-600 bg-white border border-indigo-200 rounded-lg hover:bg-indigo-50 hover:border-indigo-300 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
                                 Next
                                 <i class="fas fa-chevron-right ml-2"></i>
->>>>>>> 04cf330 (updatePage)
                             </button>
                         </nav>
                     </div>
@@ -296,20 +224,6 @@
     
     <!-- Blog Post Template (Hidden) -->
     <template id="blogPostTemplate">
-<<<<<<< HEAD
-        <div class="blog-post bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md">
-            <a href="#" class="post-link">
-                <img src="" alt="" class="post-image w-full h-48 object-cover">
-                <div class="p-6">
-                    <div class="flex items-center mb-2">
-                        <span class="post-category text-xs font-semibold px-2 py-1 rounded-full bg-indigo-100 text-indigo-800"></span>
-                        <span class="post-date text-xs text-gray-500 ml-auto"></span>
-                    </div>
-                    <h3 class="post-title text-xl font-semibold mb-2 text-gray-900"></h3>
-                    <p class="post-summary text-gray-600 mb-4"></p>
-                    <div class="flex items-center text-indigo-600 font-medium">
-                        Read More <i class="fas fa-arrow-right ml-2"></i>
-=======
         <div class="blog-post bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md hover:translate-y-[-4px] group">
             <a href="#" class="post-link block">
                 <div class="relative overflow-hidden">
@@ -333,7 +247,6 @@
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                         </svg>
->>>>>>> 04cf330 (updatePage)
                     </div>
                 </div>
             </a>
@@ -439,32 +352,17 @@
         const nextPageBtn = document.getElementById('nextPage');
         const currentPageEl = document.getElementById('currentPage');
         const totalPagesEl = document.getElementById('totalPages');
-<<<<<<< HEAD
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        // Pagination variables
-        let currentPage = 1;
-        let postsPerPage = 6;
-=======
         const mobileMenuBtn = document.querySelector('.hamburger'); // Updated selector
         const mobileMenu = document.querySelector('.mobile-menu'); // Updated selector
         
         // Pagination variables
         let currentPage = 1;
         let postsPerPage = 6; // Show exactly 6 posts per page
->>>>>>> 04cf330 (updatePage)
         let totalPosts = 0;
         let totalPages = 1;
         let allPosts = [];
         let filteredPosts = [];
         
-<<<<<<< HEAD
-        // Mobile menu toggle
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-        });
-=======
         // Reset filters function
         function resetFilters() {
             searchInput.value = '';
@@ -478,7 +376,6 @@
                 mobileMenu.classList.toggle('hidden');
             });
         }
->>>>>>> 04cf330 (updatePage)
         
         // Load blog posts from Firestore
         function loadBlogPosts() {

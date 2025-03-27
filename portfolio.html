@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - TechSolutions</title>
+    <title>Portfolio - Vortex Marketing</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -61,6 +61,20 @@
             .portfolio-item:hover .portfolio-details {
                 transform: translateY(0);
             }
+            .pagination-btn {
+                @apply w-10 h-10 flex items-center justify-center rounded-full border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all duration-300;
+            }
+            .pagination-btn.active {
+                @apply bg-indigo-600 text-white;
+            }
+            .hero-svg-element {
+                animation: float 6s ease-in-out infinite;
+            }
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-20px); }
+                100% { transform: translateY(0px); }
+            }
         }
     </style>
     
@@ -78,11 +92,11 @@
                 </div>
                 
                 <nav class="hidden md:flex space-x-8">
-                    <a href="index.html" class="text-indigo-600 font-medium">Home</a>
-                    <a href="services.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Services</a>
+                    <a href="index.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Home</a>
                     <a href="about.html" class="text-gray-600 hover:text-indigo-600 transition-colors">About</a>
-                    <a href="portfolio.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
-                    <a href="blog.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Testimonials</a>
+                    <a href="services.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Services</a>
+                    <a href="portfolio.html" class="text-indigo-600 font-medium">Portfolio</a>
+                    <a href="blog.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Blog</a>
                     <a href="contact.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
                 </nav>
                 
@@ -91,27 +105,53 @@
                 </div>
                 
                 <button class="hamburger md:hidden focus:outline-none">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
+                    <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
             
             <div class="mobile-menu hidden md:hidden mt-4 py-4 border-t">
-                <a href="index.html" class="block py-2 text-indigo-600 font-medium">Home</a>
+                <a href="index.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Home</a>
                 <a href="services.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Services</a>
                 <a href="about.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">About</a>
-                <a href="portfolio.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
-                <a href="testimonials.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Testimonials</a>
+                <a href="portfolio.html" class="block py-2 text-indigo-600 font-medium">Portfolio</a>
+                <a href="blog.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Blog</a>
                 <a href="contact.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
                 <a href="contact.html" class="btn btn-primary mt-4 inline-block">Get a Quote</a>
             </div>
         </div>
     </header>
 
-    <!-- Page Banner -->
-    <section class="pt-32 pb-20 bg-gradient-to-r from-indigo-600 to-blue-500 text-white">
-        <div class="container mx-auto px-6 text-center">
+    <!-- Enhanced Hero Section with SVG -->
+    <section class="pt-32 pb-20 bg-gradient-to-r from-indigo-600 to-blue-500 text-white relative overflow-hidden">
+        <!-- SVG Background Elements -->
+        <div class="absolute inset-0 z-0 opacity-20">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
+                <path fill="#ffffff" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+        
+        <!-- Floating SVG Elements -->
+        <div class="absolute top-20 left-10 hero-svg-element opacity-30">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="40" r="40" fill="white"/>
+                <path d="M20 40L35 55L60 30" stroke="#4F46E5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-10 right-20 hero-svg-element opacity-30" style="animation-delay: 1s;">
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="120" height="120" rx="20" fill="white"/>
+                <path d="M30 60H90M60 30V90" stroke="#4F46E5" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+        </div>
+        
+        <div class="absolute top-40 right-40 hero-svg-element opacity-30" style="animation-delay: 2s;">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="30,0 60,30 30,60 0,30" fill="white"/>
+            </svg>
+        </div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
             <h1 class="text-4xl md:text-5xl font-bold mb-6" data-aos="fade-up">Our Creative Portfolio</h1>
             <p class="text-xl max-w-3xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="200">Discover our innovative solutions and successful projects that have transformed businesses across various industries.</p>
             <div class="flex justify-center space-x-4 mt-8" data-aos="fade-up" data-aos-delay="300">
@@ -126,7 +166,7 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-wrap justify-center mb-12" data-aos="fade-up">
                 <button class="filter-btn active m-2 px-6 py-2 rounded-full border-2 border-indigo-600 transition-all duration-300" data-filter="all">All Projects</button>
-                <div id="category-filters">
+                <div id="category-filters" class="flex flex-wrap justify-center">
                     <!-- Category filters will be dynamically loaded here -->
                 </div>
             </div>
@@ -139,6 +179,11 @@
                 </div>
                 
                 <!-- Portfolio items will be loaded from Firebase -->
+            </div>
+            
+            <!-- Pagination -->
+            <div id="pagination-container" class="flex justify-center mt-12 space-x-2" data-aos="fade-up">
+                <!-- Pagination will be dynamically generated -->
             </div>
         </div>
     </section>
@@ -208,7 +253,7 @@
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-semibold mb-4">TechSolutions</h3>
+                    <h3 class="text-xl font-semibold mb-4">Vortex Marketing</h3>
                     <p class="text-gray-400 mb-4">Innovative IT solutions for businesses of all sizes. We help you leverage technology to achieve your business goals.</p>
                     <div class="flex space-x-4">
                         <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-facebook-f"></i></a>
@@ -254,7 +299,7 @@
             </div>
             
             <div class="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400">&copy; 2023 TechSolutions. All rights reserved.</p>
+                <p class="text-gray-400">&copy; 2023 Vortex Marketing. All rights reserved.</p>
                 <div class="flex space-x-6 mt-4 md:mt-0">
                     <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
                     <a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
@@ -298,6 +343,11 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         
+        // Pagination variables
+        let currentPage = 1;
+        const projectsPerPage = 6;
+        let allProjects = [];
+        
         // Load portfolio projects from Firebase
         async function loadPortfolioProjects() {
             try {
@@ -306,8 +356,7 @@
                 const categoryFilters = document.getElementById('category-filters');
                 
                 // Get projects from Firestore
-                const projectsSnapshot = await db.collection('portfolioProjects')
-                    .get();
+                const projectsSnapshot = await db.collection('portfolioProjects').get();
                 
                 // Hide loading indicator if we have data
                 if (!projectsSnapshot.empty) {
@@ -317,74 +366,24 @@
                 // Track categories for filters
                 const categories = new Set();
                 
+                // Store all projects
+                allProjects = [];
+                
                 // Process each project
                 projectsSnapshot.forEach(doc => {
                     const project = doc.data();
                     const projectId = doc.id;
                     
-                    console.log("Project data:", project); // Debug log
+                    // Add project to our array
+                    allProjects.push({
+                        id: projectId,
+                        ...project
+                    });
                     
                     // Add category to our set
                     if (project.category) {
                         categories.add(project.category);
                     }
-                    
-                    // Create portfolio item
-                    const portfolioItem = document.createElement('div');
-                    portfolioItem.className = 'portfolio-item show';
-                    portfolioItem.setAttribute('data-category', project.category || 'other');
-                    portfolioItem.setAttribute('data-aos', 'fade-up');
-                    
-                    // Format the date if available
-                    let formattedDate = "No date";
-                    try {
-                        if (project.date) {
-                            const date = new Date(project.date);
-                            formattedDate = date.toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long'
-                            });
-                        } else if (project.createdAt) {
-                            const date = project.createdAt.toDate ? project.createdAt.toDate() : new Date(project.createdAt);
-                            formattedDate = date.toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long'
-                            });
-                        }
-                    } catch (e) {
-                        console.error("Date formatting error:", e);
-                    }
-                    
-                    // Set the HTML content
-                    portfolioItem.innerHTML = `
-                        <div class="relative overflow-hidden rounded-lg shadow-lg group">
-                            <img src="${project.image || 'https://via.placeholder.com/600x400?text=No+Image'}" 
-                                alt="${project.title || 'Project'}" 
-                                class="w-full h-64 object-cover">
-                            <div class="portfolio-overlay absolute inset-0 flex flex-col justify-center items-center p-6 text-white">
-                                <div class="portfolio-details text-center">
-                                    <h3 class="text-xl font-semibold mb-2">${project.title || 'Untitled Project'}</h3>
-                                    <p class="mb-4">${project.summary || 'No description available.'}</p>
-                                    <div class="flex justify-center space-x-3">
-                                        <a href="${project.image || 'https://via.placeholder.com/1200x800?text=No+Image'}" 
-                                           data-lightbox="portfolio" 
-                                           target="_blank"
-                                           class="bg-transparent border border-white text-white px-4 py-2 rounded-lg hover:bg-white hover:text-indigo-600 transition-colors">Preview</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-4">
-                            <span class="inline-block bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium">
-                                ${project.category || 'Other'}
-                            </span>
-                            <h3 class="text-lg font-semibold mt-2">${project.title || 'Untitled Project'}</h3>
-                            <p class="text-gray-500 text-sm">${formattedDate}</p>
-                        </div>
-                    `;
-                    
-                    // Add to container
-                    portfolioContainer.appendChild(portfolioItem);
                 });
                 
                 // If no projects found
@@ -395,6 +394,12 @@
                             <p class="text-gray-500">No projects found</p>
                         </div>
                     `;
+                } else {
+                    // Display first page of projects
+                    displayProjects(allProjects, currentPage);
+                    
+                    // Setup pagination
+                    setupPagination(allProjects.length);
                 }
                 
                 // Create category filters
@@ -421,6 +426,149 @@
             }
         }
         
+        // Display projects for the current page
+        function displayProjects(projects, page) {
+            const portfolioContainer = document.getElementById('portfolio-container');
+            
+            // Clear container except loading indicator
+            const loadingIndicator = document.getElementById('loading-indicator');
+            portfolioContainer.innerHTML = '';
+            portfolioContainer.appendChild(loadingIndicator);
+            
+            // Calculate start and end index
+            const startIndex = (page - 1) * projectsPerPage;
+            const endIndex = Math.min(startIndex + projectsPerPage, projects.length);
+            
+            // Display projects for current page
+            for (let i = startIndex; i < endIndex; i++) {
+                const project = projects[i];
+                
+                // Format the date if available
+                let formattedDate = "No date";
+                try {
+                    if (project.date) {
+                        const date = new Date(project.date);
+                        formattedDate = date.toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long'
+                        });
+                    } else if (project.createdAt) {
+                        const date = project.createdAt.toDate ? project.createdAt.toDate() : new Date(project.createdAt);
+                        formattedDate = date.toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long'
+                        });
+                    }
+                } catch (e) {
+                    console.error("Date formatting error:", e);
+                }
+                
+                // Create portfolio item
+                const portfolioItem = document.createElement('div');
+                portfolioItem.className = 'portfolio-item show';
+                portfolioItem.setAttribute('data-category', project.category || 'other');
+                portfolioItem.setAttribute('data-aos', 'fade-up');
+                
+                // Set the HTML content
+                portfolioItem.innerHTML = `
+                    <div class="relative overflow-hidden rounded-lg shadow-lg group">
+                        <img src="${project.image || 'https://via.placeholder.com/600x400?text=No+Image'}" 
+                            alt="${project.title || 'Project'}" 
+                            class="w-full h-64 object-cover">
+                        <div class="portfolio-overlay absolute inset-0 flex flex-col justify-center items-center p-6 text-white">
+                            <div class="portfolio-details text-center">
+                                <h3 class="text-xl font-semibold mb-2">${project.title || 'Untitled Project'}</h3>
+                                <p class="mb-4">${project.summary || 'No description available.'}</p>
+                                <div class="flex justify-center space-x-3">
+                                    <a href="${project.image || 'https://via.placeholder.com/1200x800?text=No+Image'}" 
+                                       data-lightbox="portfolio" 
+                                       target="_blank"
+                                       class="bg-transparent border border-white text-white px-4 py-2 rounded-lg hover:bg-white hover:text-indigo-600 transition-colors">Preview</a>
+                                    ${project.link ? `<a href="${project.link}" target="_blank" class="bg-white text-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-100 transition-colors">Visit</a>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <span class="inline-block bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium">
+                            ${project.category || 'Other'}
+                        </span>
+                        <h3 class="text-lg font-semibold mt-2">${project.title || 'Untitled Project'}</h3>
+                        <p class="text-gray-500 text-sm">${formattedDate}</p>
+                    </div>
+                `;
+                
+                // Add to container
+                portfolioContainer.appendChild(portfolioItem);
+            }
+        }
+        
+        // Setup pagination
+        function setupPagination(totalProjects) {
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = '';
+            
+            const totalPages = Math.ceil(totalProjects / projectsPerPage);
+            
+            // Only show pagination if we have more than one page
+            if (totalPages <= 1) {
+                return;
+            }
+            
+            // Previous button
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'pagination-btn';
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayProjects(allProjects, currentPage);
+                    updatePaginationButtons();
+                }
+            });
+            paginationContainer.appendChild(prevBtn);
+            
+                       // Page buttons
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = 'pagination-btn ' + (i === currentPage ? 'active' : '');
+                pageBtn.textContent = i;
+                pageBtn.setAttribute('data-page', i);
+                pageBtn.addEventListener('click', () => {
+                    currentPage = i;
+                    displayProjects(allProjects, currentPage);
+                    updatePaginationButtons();
+                });
+                paginationContainer.appendChild(pageBtn);
+            }
+            
+            // Next button
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'pagination-btn';
+            nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayProjects(allProjects, currentPage);
+                    updatePaginationButtons();
+                }
+            });
+            paginationContainer.appendChild(nextBtn);
+        }
+        
+        // Update pagination buttons active state
+        function updatePaginationButtons() {
+            const paginationButtons = document.querySelectorAll('.pagination-btn[data-page]');
+            paginationButtons.forEach(button => {
+                const pageNum = parseInt(button.getAttribute('data-page'));
+                if (pageNum === currentPage) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+        
         // Initialize portfolio filters
         function initializeFilters() {
             const filterButtons = document.querySelectorAll('.filter-btn');
@@ -438,17 +586,20 @@
                     const filterValue = button.getAttribute('data-filter');
                     
                     // Filter portfolio items
-                    portfolioItems.forEach(item => {
-                        const itemCategory = item.getAttribute('data-category');
-                        
-                        if (filterValue === 'all' || filterValue === itemCategory) {
-                            item.classList.remove('hide');
-                            item.classList.add('show');
-                        } else {
-                            item.classList.add('hide');
-                            item.classList.remove('show');
-                        }
-                    });
+                    let filteredProjects = [];
+                    
+                    if (filterValue === 'all') {
+                        filteredProjects = allProjects;
+                    } else {
+                        filteredProjects = allProjects.filter(project => 
+                            project.category === filterValue
+                        );
+                    }
+                    
+                    // Reset to first page and display filtered projects
+                    currentPage = 1;
+                    displayProjects(filteredProjects, currentPage);
+                    setupPagination(filteredProjects.length);
                 });
             });
         }
@@ -495,8 +646,8 @@
             });
         });
 
-               // Check if admin is logged in
-               function checkAdminStatus() {
+        // Check if admin is logged in
+        function checkAdminStatus() {
             const isAdmin = localStorage.getItem('adminLoggedIn') === 'true';
             
             // If admin is logged in, show edit buttons
