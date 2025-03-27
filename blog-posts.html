@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Blog Posts - Vortex Marketing</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Quill Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+</head>
+<body class="font-[Poppins] bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-indigo-800 text-white">
+            <div class="p-6">
+                <h1 class="text-xl font-bold">Vortex<span class="text-indigo-300">Marketing</span></h1>
+                <p class="text-xs text-indigo-200 mt-1">Admin Panel</p>
+            </div>
+            
+            <nav class="mt-6">
+                <a href="dashboard.html" class="flex items-center py-3 px-6 hover:bg-indigo-700 transition-colors">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
+                </a>
+                <a href="blog-posts.html" class="flex items-center py-3 px-6 bg-indigo-900 text-white">
+                    <i class="fas fa-blog mr-3"></i>
+                    Blog Posts
+                </a>
+                <a href="portfolio-projects.html" class="flex items-center py-3 px-6 hover:bg-indigo-700 transition-colors">
+                    <i class="fas fa-briefcase mr-3"></i>
+                    Portfolio Projects
+                </a>
+                <a href="#" id="logoutBtn" class="flex items-center py-3 px-6 hover:bg-indigo-700 transition-colors mt-auto">
+                    <i class="fas fa-sign-out-alt mr-3"></i>
+                    Logout
+                </a>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto">
+            <!-- Top Bar -->
+            <div class="bg-white shadow-sm p-4 flex justify-between items-center">
+                <h2 class="text-xl font-semibold">Manage Blog Posts</h2>
+                <div class="flex items-center">
+                    <button id="addNewBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors text-sm">
+                        <i class="fas fa-plus mr-2"></i> Add New Post
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Blog Posts List -->
+            <div id="postsListSection" class="p-6">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="p-4 border-b flex justify-between items-center">
+                        <h3 class="font-semibold">All Blog Posts</h3>
+                        <div class="relative">
+                            <input type="text" id="searchPosts" placeholder="Search posts..." class="px-3 py-2 border rounded-md text-sm w-64">
+                            <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="postsTableBody" class="bg-white divide-y divide-gray-200">
+                                <!-- Posts will be loaded here -->
+                                <tr>
+                                    <td colspan="5" class="px-6 py-4 text-center">
+                                        <i class="fas fa-spinner fa-spin text-indigo-600 mr-2"></i> Loading blog posts...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="noPostsMessage" class="p-8 text-center text-gray-500 hidden">
+                        No blog posts found. Click "Add New Post" to create your first post.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Add/Edit Post Form -->
+            <div id="postFormSection" class="p-6 hidden">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-semibold" id="formTitle">Add New Blog Post</h3>
+                        <button id="backToListBtn" class="text-indigo-600 hover:text-indigo-800">
+                            <i class="fas fa-arrow-left mr-2"></i> Back to List
+                        </button>
+                    </div>
+                    
+                    <form id="blogPostForm">
+                        <input type="hidden" id="postId">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="postTitle" class="block text-sm font-medium text-gray-700 mb-1">Post Title</label>
+                                <input type="text" id="postTitle" name="title" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                            </div>
+                            
+                            <div>
+                                <label for="postCategory" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                                <select id="postCategory" name="category" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="SEO">SEO</option>
+                                    <option value="Digital Marketing">Digital Marketing</option>
+                                    <option value="Web Development">Web Development</option>
+                                    <option value="Content Writing">Content Writing</option>
+                                    <option value="Designing">Designing</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="postImage" class="block text-sm font-medium text-gray-700 mb-1">Featured Image URL</label>
+                            <input type="url" id="postImage" name="image" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="https://example.com/image.jpg">
+                            <p class="text-xs text-gray-500 mt-1">Enter a URL for the featured image. For testing, you can use Unsplash images.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="postExcerpt" class="block text-sm font-medium text-gray-700 mb-1">Excerpt</label>
+                            <textarea id="postExcerpt" name="excerpt" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" required></textarea>
+                            <p class="text-xs text-gray-500 mt-1">A short summary of the post (displayed in blog listings).</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="editor" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                            <div id="editor" class="h-64 border border-gray-300 rounded-md"></div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                            <div>
+                                <label for="postAuthor" class="block text-sm font-medium text-gray-700 mb-1">Author</label>
+                                <input type="text" id="postAuthor" name="author" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" value="Admin">
+                            </div>
+                            
+                            <div>
+                                <label for="postDate" class="block text-sm font-medium text-gray-700 mb-1">Publish Date</label>
+                                <input type="date" id="postDate" name="date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                            
+                            <div>
+                                <label for="postStatus" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                                <select id="postStatus" name="status" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="published">Published</option>
+                                    <option value="draft">Draft</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end space-x-4">
+                            <button type="button" id="cancelBtn" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
+                                Cancel
+                            </button>
+                            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
+                                Save Post
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notification Modal -->
+    <div id="notificationModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 transform transition-all">
+            <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center">
+                    <div id="notificationIcon" class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-4">
+                        <i id="notificationIconType" class="fas fa-info-circle text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 id="notificationTitle" class="text-lg font-medium text-gray-900">Notification</h3>
+                    </div>
+                </div>
+                <button id="closeNotificationBtn" class="text-gray-400 hover:text-gray-500 focus:outline-none">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="mt-2">
+                <p id="notificationMessage" class="text-sm text-gray-500">Notification message here.</p>
+            </div>
+            <div class="mt-6 flex justify-end">
+                <button id="notificationOkBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors text-sm">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 transform transition-all">
+            <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-exclamation-triangle text-yellow-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-900">Confirm Action</h3>
+                    </div>
+                </div>
+                <button id="closeConfirmationBtn" class="text-gray-400 hover:text-gray-500 focus:outline-none">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="mt-2">
+                <p id="confirmationMessage" class="text-sm text-gray-500">Are you sure you want to delete this post? This action cannot be undone.</p>
+            </div>
+            <div class="mt-6 flex justify-end space-x-3">
+                <button id="confirmationCancelBtn" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors text-sm">
+                    Cancel
+                </button>
+                <button id="confirmationConfirmBtn" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-sm">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quill Editor -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD5rUpAHDBwos7UCE9go2W2AgY-vAeaLd4",
+            authDomain: "vertax-marketing.firebaseapp.com",
+            projectId: "vertax-marketing",
+            storageBucket: "vertax-marketing.appspot.com",
+            messagingSenderId: "307006172894",
+            appId: "1:307006172894:web:6b724d5b8adffc5e13dc4f",
+            measurementId: "G-FTMVVRFX9P"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+        const blogCollection = db.collection('blogPosts');
+        
+        // Check if user is logged in
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                window.location.href = 'login.html';
+            }
+        });
+        
+        // Notification system
+        const notificationModal = document.getElementById('notificationModal');
+        const notificationTitle = document.getElementById('notificationTitle');
+        const notificationMessage = document.getElementById('notificationMessage');
+        const notificationIcon = document.getElementById('notificationIcon');
+        const notificationIconType = document.getElementById('notificationIconType');
+        const closeNotificationBtn = document.getElementById('closeNotificationBtn');
+        const notificationOkBtn = document.getElementById('notificationOkBtn');
+        
+        function showNotification(message, title = 'Notification', type = 'info') {
+            // Set content
+            notificationTitle.textContent = title;
+            notificationMessage.textContent = message;
+            
+            // Set icon and color based on type
+            if (type === 'success') {
+                notificationIcon.className = 'flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4';
+                notificationIconType.className = 'fas fa-check-circle text-green-600 text-xl';
+            } else if (type === 'error') {
+                notificationIcon.className = 'flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-4';
+                notificationIconType.className = 'fas fa-exclamation-circle text-red-600 text-xl';
+            } else if (type === 'warning') {
+                notificationIcon.className = 'flex-shrink-0 w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-4';
+                notificationIconType.className = 'fas fa-exclamation-triangle text-yellow-600 text-xl';
+            } else {
+                notificationIcon.className = 'flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4';
+                notificationIconType.className = 'fas fa-info-circle text-blue-600 text-xl';
+            }
+            
+            // Show modal
+            notificationModal.classList.remove('hidden');
+        }
+        
+        function closeNotification() {
+            notificationModal.classList.add('hidden');
+        }
+        
+        // Confirmation system
+        const confirmationModal = document.getElementById('confirmationModal');
+        const confirmationMessage = document.getElementById('confirmationMessage');
+        const closeConfirmationBtn = document.getElementById('closeConfirmationBtn');
+        const confirmationCancelBtn = document.getElementById('confirmationCancelBtn');
+        const confirmationConfirmBtn = document.getElementById('confirmationConfirmBtn');
+        
+        function showConfirmation(message, confirmCallback) {
+            // Set message
+            confirmationMessage.textContent = message;
+            
+            // Store callback
+            confirmationConfirmBtn.onclick = function() {
+                closeConfirmation();
+                confirmCallback();
+            };
+            
+            // Show modal
+            confirmationModal.classList.remove('hidden');
+        }
+        
+        function closeConfirmation() {
+            confirmationModal.classList.add('hidden');
+        }
+        
+        // Notification event listeners
+        closeNotificationBtn.addEventListener('click', closeNotification);
+        notificationOkBtn.addEventListener('click', closeNotification);
+        
+        // Confirmation event listeners
+        closeConfirmationBtn.addEventListener('click', closeConfirmation);
+        confirmationCancelBtn.addEventListener('click', closeConfirmation);
+        
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            firebase.auth().signOut().then(() => {
+                localStorage.removeItem('adminLoggedIn');
+                localStorage.removeItem('adminUser');
+                window.location.href = 'login.html';
+            }).catch((error) => {
+                console.error('Error signing out: ', error);
+                showNotification('Error signing out: ' + error.message, 'Error', 'error');
+            });
+        });
+        
+        // Initialize Quill editor
+        let quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'color': [] }, { 'background': [] }],
+                    ['link', 'image'],
+                    ['clean']
+                ]
+            }
+        });
+        
+        // DOM elements
+        const postsListSection = document.getElementById('postsListSection');
+        const postFormSection = document.getElementById('postFormSection');
+        const postsTableBody = document.getElementById('postsTableBody');
+        const noPostsMessage = document.getElementById('noPostsMessage');
+        const blogPostForm = document.getElementById('blogPostForm');
+        const formTitle = document.getElementById('formTitle');
+        
+        // Show Add/Edit form
+        function showForm(isEdit = false) {
+            postsListSection.classList.add('hidden');
+            postFormSection.classList.remove('hidden');
+            formTitle.textContent = isEdit ? 'Edit Blog Post' : 'Add New Blog Post';
+            
+            // Set today's date as default for new posts
+            if (!isEdit) {
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('postDate').value = today;
+            }
+        }
+        
+        // Show posts list
+        function showList() {
+            postFormSection.classList.add('hidden');
+            postsListSection.classList.remove('hidden');
+            loadPosts();
+        }
+        
+        // Load posts from Firestore
+        function loadPosts() {
+            // Show loading state
+            postsTableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center"><i class="fas fa-spinner fa-spin text-indigo-600 mr-2"></i> Loading blog posts...</td></tr>';
+            
+            blogCollection.orderBy('createdAt', 'desc').get()
+                .then((querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        postsTableBody.innerHTML = '';
+                        noPostsMessage.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    noPostsMessage.classList.add('hidden');
+                    postsTableBody.innerHTML = '';
+                    
+                    querySnapshot.forEach(doc => {
+                        const post = doc.data();
+                        post.id = doc.id;
+                        
+                        const date = post.date ? new Date(post.date) : 
+                                    post.createdAt ? post.createdAt.toDate() : new Date();
+                        const formattedDate = date.toLocaleDateString();
+                        
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    ${post.image ? `<img src="${post.image}" alt="${post.title}" class="h-10 w-10 rounded-md object-cover mr-3">` : ''}
+                                    <div>
+                                        <div class="font-medium text-gray-900">${post.title}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">
+                                    ${post.category}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                ${formattedDate}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${post.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                                    ${post.status === 'published' ? 'Published' : 'Draft'}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3 edit-btn" data-id="${post.id}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-red-600 hover:text-red-900 delete-btn" data-id="${post.id}">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        `;
+                        
+                        postsTableBody.appendChild(row);
+                    });
+                    
+                    // Add event listeners to edit and delete buttons
+                    document.querySelectorAll('.edit-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const postId = this.getAttribute('data-id');
+                            editPost(postId);
+                        });
+                    });
+                    
+                    document.querySelectorAll('.delete-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const postId = this.getAttribute('data-id');
+                            deletePost(postId);
+                        });
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error loading posts:", error);
+                    postsTableBody.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center text-red-500">Error loading posts: ${error.message}</td></tr>`;
+                    showNotification('Error loading posts: ' + error.message, 'Error', 'error');
+                });
+        }
+        
+        // Edit post
+        function editPost(postId) {
+            blogCollection.doc(postId).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const post = doc.data();
+                        
+                        // Fill form with post data
+                        document.getElementById('postId').value = postId;
+                        document.getElementById('postTitle').value = post.title || '';
+                        document.getElementById('postCategory').value = post.category || 'Marketing';
+                        document.getElementById('postImage').value = post.image || '';
+                        document.getElementById('postExcerpt').value = post.excerpt || '';
+                        document.getElementById('postAuthor').value = post.author || 'Admin';
+                        
+                        // Set date
+                        if (post.date) {
+                            const date = new Date(post.date);
+                            document.getElementById('postDate').value = date.toISOString().split('T')[0];
+                        } else if (post.createdAt) {
+                            const date = post.createdAt.toDate();
+                            document.getElementById('postDate').value = date.toISOString().split('T')[0];
+                        }
+                        
+                        document.getElementById('postStatus').value = post.status || 'published';
+                        
+                        // Set Quill editor content
+                        quill.root.innerHTML = post.content || '';
+                        
+                        // Show form
+                        showForm(true);
+                    } else {
+                        showNotification('Post not found!', 'Error', 'error');
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error getting post:", error);
+                    showNotification('Error loading post: ' + error.message, 'Error', 'error');
+                });
+        }
+        
+        // Delete post
+        function deletePost(postId) {
+            showConfirmation('Are you sure you want to delete this post? This action cannot be undone.', function() {
+                blogCollection.doc(postId).delete()
+                    .then(() => {
+                        showNotification('Post deleted successfully!', 'Success', 'success');
+                        loadPosts();
+                    })
+                    .catch((error) => {
+                        console.error("Error deleting post:", error);
+                        showNotification('Error deleting post: ' + error.message, 'Error', 'error');
+                    });
+            });
+        }
+        
+        // Save post
+        function savePost(postData, postId = null) {
+            const saveBtn = document.querySelector('#blogPostForm button[type="submit"]');
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
+            
+            // Add timestamps
+            if (!postId) {
+                postData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+            }
+            postData.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+            
+            // Save to Firestore
+            let savePromise;
+            
+            if (postId) {
+                savePromise = blogCollection.doc(postId).update(postData);
+            } else {
+                savePromise = blogCollection.add(postData);
+            }
+            
+            savePromise
+                .then(() => {
+                    showNotification(
+                        postId ? 'Post updated successfully!' : 'Post created successfully!', 
+                        'Success', 
+                        'success'
+                    );
+                    showList();
+                })
+                .catch((error) => {
+                    console.error("Error saving post:", error);
+                    showNotification('Error saving post: ' + error.message, 'Error', 'error');
+                    
+                    // Reset button
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = 'Save Post';
+                });
+        }
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load posts on page load
+            loadPosts();
+            
+            // Add New Post button
+            document.getElementById('addNewBtn').addEventListener('click', function() {
+                // Reset form
+                document.getElementById('blogPostForm').reset();
+                document.getElementById('postId').value = '';
+                quill.root.innerHTML = '';
+                
+                // Set default date
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('postDate').value = today;
+                
+                showForm(false);
+            });
+            
+            // Back to List button
+            document.getElementById('backToListBtn').addEventListener('click', function() {
+                showList();
+            });
+            
+                       // Cancel button
+                       document.getElementById('cancelBtn').addEventListener('click', function() {
+                showList();
+            });
+            
+            // Form submission
+            blogPostForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const postId = document.getElementById('postId').value;
+                
+                // Get form data
+                const postData = {
+                    title: document.getElementById('postTitle').value,
+                    category: document.getElementById('postCategory').value,
+                    image: document.getElementById('postImage').value,
+                    excerpt: document.getElementById('postExcerpt').value,
+                    content: quill.root.innerHTML,
+                    author: document.getElementById('postAuthor').value,
+                    date: document.getElementById('postDate').value,
+                    status: document.getElementById('postStatus').value
+                };
+                
+                // Validate required fields
+                if (!postData.title || !postData.excerpt) {
+                    showNotification('Please fill in all required fields.', 'Validation Error', 'warning');
+                    return;
+                }
+                
+                // Save post
+                savePost(postData, postId || null);
+            });
+            
+            // Search functionality
+            document.getElementById('searchPosts').addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                if (searchTerm.length < 2) {
+                    loadPosts(); // Reload all posts if search term is too short
+                    return;
+                }
+                
+                // Filter posts by title
+                blogCollection.orderBy('title').get()
+                    .then((querySnapshot) => {
+                        if (querySnapshot.empty) {
+                            postsTableBody.innerHTML = '';
+                            noPostsMessage.classList.remove('hidden');
+                            return;
+                        }
+                        
+                        noPostsMessage.classList.add('hidden');
+                        postsTableBody.innerHTML = '';
+                        
+                        let matchFound = false;
+                        
+                        querySnapshot.forEach(doc => {
+                            const post = doc.data();
+                            post.id = doc.id;
+                            
+                            // Check if post title contains search term
+                            if (post.title.toLowerCase().includes(searchTerm)) {
+                                matchFound = true;
+                                
+                                const date = post.date ? new Date(post.date) : 
+                                            post.createdAt ? post.createdAt.toDate() : new Date();
+                                const formattedDate = date.toLocaleDateString();
+                                
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            ${post.image ? `<img src="${post.image}" alt="${post.title}" class="h-10 w-10 rounded-md object-cover mr-3">` : ''}
+                                            <div>
+                                                <div class="font-medium text-gray-900">${post.title}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">
+                                            ${post.category}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        ${formattedDate}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${post.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                                            ${post.status === 'published' ? 'Published' : 'Draft'}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <button class="text-indigo-600 hover:text-indigo-900 mr-3 edit-btn" data-id="${post.id}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-900 delete-btn" data-id="${post.id}">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                `;
+                                
+                                postsTableBody.appendChild(row);
+                            }
+                        });
+                        
+                        // Show no results message
+                        if (!matchFound) {
+                            postsTableBody.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center">No posts found matching "${searchTerm}"</td></tr>`;
+                        } else {
+                            // Add event listeners to edit and delete buttons
+                            document.querySelectorAll('.edit-btn').forEach(btn => {
+                                btn.addEventListener('click', function() {
+                                    const postId = this.getAttribute('data-id');
+                                    editPost(postId);
+                                });
+                            });
+                            
+                            document.querySelectorAll('.delete-btn').forEach(btn => {
+                                btn.addEventListener('click', function() {
+                                    const postId = this.getAttribute('data-id');
+                                    deletePost(postId);
+                                });
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error searching posts:", error);
+                        postsTableBody.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center text-red-500">Error searching posts: ${error.message}</td></tr>`;
+                        showNotification('Error searching posts: ' + error.message, 'Error', 'error');
+                    });
+            });
+        });
+    </script>
+</body>
+</html>

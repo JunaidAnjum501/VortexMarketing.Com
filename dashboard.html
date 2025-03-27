@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Vortex Marketing</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+</head>
+<body class="font-[Poppins] bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-indigo-800 text-white">
+            <div class="p-6">
+                <h1 class="text-xl font-bold">Vortex<span class="text-indigo-300">Marketing</span></h1>
+                <p class="text-xs text-indigo-200 mt-1">Admin Panel</p>
+            </div>
+            
+            <nav class="mt-6">
+                <a href="dashboard.html" class="flex items-center py-3 px-6 bg-indigo-900 text-white">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
+                </a>
+                <a href="blog-posts.html" class="flex items-center py-3 px-6 hover:bg-indigo-700 transition-colors">
+                    <i class="fas fa-blog mr-3"></i>
+                    Blog Posts
+                </a>
+                <a href="portfolio-projects.html" class="flex items-center py-3 px-6 hover:bg-indigo-700 transition-colors">
+                    <i class="fas fa-briefcase mr-3"></i>
+                    Portfolio Projects
+                </a>
+                <a href="messages.html" class="flex items-center py-3 px-6 hover:bg-indigo-700 transition-colors">
+                    <i class="fas fa-envelope mr-3"></i>
+                    Messages
+                </a>
+                <a href="#" id="logoutBtn" class="flex items-center py-3 px-6 hover:bg-indigo-700 transition-colors mt-auto">
+                    <i class="fas fa-sign-out-alt mr-3"></i>
+                    Logout
+                </a>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto">
+            <!-- Top Bar -->
+            <div class="bg-white shadow-sm p-4 flex justify-between items-center">
+                <h2 class="text-xl font-semibold">Dashboard</h2>
+                <div class="flex items-center">
+                    <span class="text-sm text-gray-600 mr-4" id="welcomeMessage">Welcome, Admin</span>
+                    <button id="mobileMenuBtn" class="md:hidden text-gray-500 hover:text-indigo-600 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Dashboard Content -->
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                    <!-- Blog Stats Card -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 p-3 rounded-full">
+                                <i class="fas fa-blog text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-gray-500 text-sm">Total Blog Posts</h3>
+                                <p class="text-2xl font-semibold" id="blogCount">
+                                    <i class="fas fa-spinner fa-spin text-indigo-600"></i>
+                                </p>
+                            </div>
+                        </div>
+                        <a href="blog-posts.html" class="text-indigo-600 text-sm mt-4 inline-block hover:underline">
+                            Manage Blog Posts <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Portfolio Stats Card -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 p-3 rounded-full">
+                                <i class="fas fa-briefcase text-indigo-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-gray-500 text-sm">Total Projects</h3>
+                                <p class="text-2xl font-semibold" id="projectCount">
+                                    <i class="fas fa-spinner fa-spin text-indigo-600"></i>
+                                </p>
+                            </div>
+                        </div>
+                        <a href="portfolio-projects.html" class="text-indigo-600 text-sm mt-4 inline-block hover:underline">
+                            Manage Projects <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Messages Stats Card -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center">
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-envelope text-green-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-gray-500 text-sm">Contact Messages</h3>
+                                <p class="text-2xl font-semibold" id="messageCount">
+                                    <i class="fas fa-spinner fa-spin text-green-600"></i>
+                                </p>
+                            </div>
+                        </div>
+                        <a href="messages.html" class="text-green-600 text-sm mt-4 inline-block hover:underline">
+                            View Messages <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                    
+                    <!-- Quick Actions Card -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="font-semibold mb-4">Quick Actions</h3>
+                        <div class="space-y-2">
+                            <a href="blog-posts.html?action=new" class="block bg-indigo-50 hover:bg-indigo-100 p-3 rounded-md transition-colors">
+                                <i class="fas fa-plus-circle text-indigo-600 mr-2"></i>
+                                Add New Blog Post
+                            </a>
+                            <a href="portfolio-projects.html?action=new" class="block bg-indigo-50 hover:bg-indigo-100 p-3 rounded-md transition-colors">
+                                <i class="fas fa-plus-circle text-indigo-600 mr-2"></i>
+                                Add New Project
+                            </a>
+                            <a href="index.html" target="_blank" class="block bg-indigo-50 hover:bg-indigo-100 p-3 rounded-md transition-colors">
+                                <i class="fas fa-external-link-alt text-indigo-600 mr-2"></i>
+                                View Website
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity Section -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h3 class="font-semibold mb-4">Recent Activity</h3>
+                    <div id="recentActivity" class="space-y-4">
+                        <p class="text-center py-4">
+                            <i class="fas fa-spinner fa-spin text-indigo-600"></i>
+                            Loading recent activity...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD5rUpAHDBwos7UCE9go2W2AgY-vAeaLd4",
+            authDomain: "vertax-marketing.firebaseapp.com",
+            projectId: "vertax-marketing",
+            storageBucket: "vertax-marketing.appspot.com",
+            messagingSenderId: "307006172894",
+            appId: "1:307006172894:web:6b724d5b8adffc5e13dc4f",
+            measurementId: "G-FTMVVRFX9P"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        // Check if user is logged in
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                window.location.href = 'login.html';
+            } else {
+                // Update welcome message
+                const userData = JSON.parse(localStorage.getItem('adminUser')) || { displayName: 'Admin' };
+                document.getElementById('welcomeMessage').textContent = `Welcome, ${userData.displayName}`;
+                
+                // Load dashboard data
+                updateCounts();
+                updateRecentActivity();
+            }
+        });
+        
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            firebase.auth().signOut().then(() => {
+                localStorage.removeItem('adminLoggedIn');
+                localStorage.removeItem('adminUser');
+                // Force redirect to login page with timestamp to prevent caching
+                window.location.href = 'login.html?t=' + new Date().getTime();
+            }).catch((error) => {
+                console.error('Error signing out: ', error);
+                alert('Error signing out. Please try again.');
+                // Fallback redirect if error occurs
+                window.location.href = 'login.html';
+            });
+        });
+        
+        // Load data counts
+        async function updateCounts() {
+            try {
+                // Get blog posts count
+                const blogSnapshot = await db.collection('blogPosts').get();
+                document.getElementById('blogCount').textContent = blogSnapshot.size || '0';
+                
+                // Get projects count
+                const projectSnapshot = await db.collection('portfolioProjects').get();
+                document.getElementById('projectCount').textContent = projectSnapshot.size || '0';
+                
+                // Get messages count
+                const messageSnapshot = await db.collection('contactMessages').get();
+                document.getElementById('messageCount').textContent = messageSnapshot.size || '0';
+            } catch (error) {
+                console.error("Error fetching counts:", error);
+                document.getElementById('blogCount').textContent = "0";
+                document.getElementById('projectCount').textContent = "0";
+                document.getElementById('messageCount').textContent = "0";
+            }
+        }
+        
+        // Update recent activity
+        async function updateRecentActivity() {
+            const recentActivityEl = document.getElementById('recentActivity');
+            
+            try {
+                // Get recent blog posts
+                const blogSnapshot = await db.collection('blogPosts')
+                    .orderBy('createdAt', 'desc')
+                    .limit(3)
+                    .get();
+                
+                // Get recent projects
+                const projectSnapshot = await db.collection('portfolioProjects')
+                    .orderBy('createdAt', 'desc')
+                    .limit(3)
+                    .get();
+                
+                // Get recent messages
+                const messageSnapshot = await db.collection('contactMessages')
+                    .orderBy('timestamp', 'desc')
+                    .limit(3)
+                    .get();
+                
+                // Combine and sort items
+                const allItems = [];
+                
+                blogSnapshot.forEach(doc => {
+                    const data = doc.data();
+                    allItems.push({
+                        type: 'blog',
+                        title: data.title || 'Untitled Post',
+                        date: data.date ? new Date(data.date) : new Date(),
+                        id: doc.id
+                    });
+                });
+                
+                projectSnapshot.forEach(doc => {
+                    const data = doc.data();
+                    allItems.push({
+                        type: 'project',
+                        title: data.title || 'Untitled Project',
+                        date: data.date ? new Date(data.date) : new Date(),
+                        id: doc.id
+                    });
+                });
+                
+                messageSnapshot.forEach(doc => {
+                    const data = doc.data();
+                    allItems.push({
+                        type: 'message',
+                        title: data.subject || 'Contact from ' + (data.name || 'Unknown'),
+                        date: data.date ? new Date(data.date) : new Date(),
+                        id: doc.id,
+                        sender: data.name || 'Unknown',
+                        read: !!data.read
+                    });
+                });
+                
+                // Sort by date (newest first)
+                allItems.sort((a, b) => b.date - a.date);
+                
+                // Display recent items
+                if (allItems.length > 0) {
+                    recentActivityEl.innerHTML = '';
+                    allItems.slice(0, 5).forEach(item => {
+                        // Calculate time ago
+                        const now = new Date();
+                        const diffMs = now - item.date;
+                        const diffMins = Math.floor(diffMs / 60000);
+                        const diffHours = Math.floor(diffMins / 60);
+                        const diffDays = Math.floor(diffHours / 24);
+                        
+                        let timeAgo;
+                        if (diffDays > 0) {
+                            timeAgo = `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+                        } else if (diffHours > 0) {
+                            timeAgo = `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+                        } else if (diffMins > 0) {
+                            timeAgo = `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+                        } else {
+                            timeAgo = 'Just now';
+                        }
+                        
+                        let iconClass, bgColor, textColor, actionUrl, actionText;
+                        
+                        switch(item.type) {
+                            case 'blog':
+                                iconClass = 'blog';
+                                bgColor = 'blue';
+                                textColor = 'blue';
+                                actionUrl = `blog-posts.html?edit=${item.id}`;
+                                actionText = 'Edit Post';
+                                break;
+                            case 'project':
+                                iconClass = 'briefcase';
+                                bgColor = 'indigo';
+                                textColor = 'indigo';
+                                actionUrl = `portfolio-projects.html?edit=${item.id}`;
+                                actionText = 'Edit Project';
+                                break;
+                            case 'message':
+                                iconClass = 'envelope';
+                                bgColor = 'green';
+                                textColor = 'green';
+                                actionUrl = `messages.html?view=${item.id}`;
+                                actionText = 'View Message';
+                                break;
+                        }
+                        
+                        const activityItem = document.createElement('div');
+                        activityItem.className = 'flex items-start space-x-3 pb-4 border-b border-gray-100 last:border-0';
+                        
+                        activityItem.innerHTML = `
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-${bgColor}-100 flex items-center justify-center">
+                                <i class="fas fa-${iconClass} text-${textColor}-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center">
+                                    <p class="font-medium ${item.type === 'message' && !item.read ? 'text-blue-600' : 'text-gray-800'}">
+                                        ${item.title}
+                                    </p>
+                                    ${item.type === 'message' && !item.read ? '<span class="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">New</span>' : ''}
+                                </div>
+                                <p class="text-sm text-gray-500 mt-1">
+                                    ${item.type === 'message' ? `From ${item.sender} • ` : ''}${timeAgo}
+                                </p>
+                            </div>
+                            <div>
+                                <a href="${actionUrl}" class="text-${textColor}-600 hover:text-${textColor}-800 text-sm font-medium">
+                                    ${actionText}
+                                </a>
+                            </div>
+                        `;
+                        
+                        recentActivityEl.appendChild(activityItem);
+                    });
+                } else {
+                    recentActivityEl.innerHTML = '<p class="text-gray-500 text-center py-4">No recent activity to display.</p>';
+                }
+            } catch (error) {
+                console.error("Error in recent activity:", error);
+                // Fallback to a simple message
+                recentActivityEl.innerHTML = `
+                    <div class="text-center py-4">
+                        <p class="text-gray-500">No recent activity to display</p>
+                        <p class="text-sm text-gray-400 mt-2">Start by creating a blog post or project</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Handle mobile menu toggle
+        document.getElementById('mobileMenuBtn')?.addEventListener('click', function() {
+            const sidebar = document.querySelector('.w-64');
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('absolute');
+            sidebar.classList.toggle('z-10');
+            sidebar.classList.toggle('h-screen');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Portfolio Projects - Vortex Marketing</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Quill Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+</head>
+<body class="font-[Poppins] bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-indigo-800 text-white">
+            <div class="p-6">
+                <h1 class="text-xl font-bold">Vortex<span class="text-indigo-300">Marketing</span></h1>
+                <p class="text-xs text-indigo-200 mt-1">Admin Panel</p>
+            </div>
+            
+            <nav class="mt-6">
+                <a href="dashboard.html" class="flex items-center py-3 px-6 hover:bg-indigo-700 transition-colors">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
+                </a>
+                <a href="blog-posts.html" class="flex items-center py-3 px-6 hover:bg-indigo-700 transition-colors">
+                    <i class="fas fa-blog mr-3"></i>
+                    Blog Posts
+                </a>
+                <a href="portfolio-projects.html" class="flex items-center py-3 px-6 bg-indigo-900 text-white">
+                    <i class="fas fa-briefcase mr-3"></i>
+                    Portfolio Projects
+                </a>
+                <a href="#" id="logoutBtn" class="flex items-center py-3 px-6 hover:bg-indigo-700 transition-colors mt-auto">
+                    <i class="fas fa-sign-out-alt mr-3"></i>
+                    Logout
+                </a>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto">
+            <!-- Top Bar -->
+            <div class="bg-white shadow-sm p-4 flex justify-between items-center">
+                <h2 class="text-xl font-semibold">Manage Portfolio Projects</h2>
+                <div class="flex items-center">
+                    <button id="addNewBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors text-sm">
+                        <i class="fas fa-plus mr-2"></i> Add New Project
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Projects List -->
+            <div id="projectsListSection" class="p-6">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="p-4 border-b flex justify-between items-center">
+                        <h3 class="font-semibold">All Portfolio Projects</h3>
+                        <div class="relative">
+                            <input type="text" id="searchProjects" placeholder="Search projects..." class="px-3 py-2 border rounded-md text-sm w-64">
+                            <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projectsTableBody" class="bg-white divide-y divide-gray-200">
+                                <!-- Projects will be loaded here -->
+                                <tr>
+                                    <td colspan="5" class="px-6 py-4 text-center">
+                                        <i class="fas fa-spinner fa-spin text-indigo-600 mr-2"></i> Loading projects...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="noProjectsMessage" class="p-8 text-center text-gray-500 hidden">
+                        No portfolio projects found. Click "Add New Project" to create your first project.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Add/Edit Project Form -->
+            <div id="projectFormSection" class="p-6 hidden">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-semibold" id="formTitle">Add New Portfolio Project</h3>
+                        <button id="backToListBtn" class="text-indigo-600 hover:text-indigo-800">
+                            <i class="fas fa-arrow-left mr-2"></i> Back to List
+                        </button>
+                    </div>
+                    
+                    <form id="projectForm">
+                        <input type="hidden" id="projectId">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="projectTitle" class="block text-sm font-medium text-gray-700 mb-1">Project Title</label>
+                                <input type="text" id="projectTitle" name="title" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                            </div>
+                            
+                            <div>
+                                <label for="projectCategory" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                                <select id="projectCategory" name="category" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="Web Design">Web Design</option>
+                                    <option value="Branding">Branding</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Social Media">Social Media</option>
+                                    <option value="App Development">App Development</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="projectClient" class="block text-sm font-medium text-gray-700 mb-1">Client Name</label>
+                                <input type="text" id="projectClient" name="client" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                            </div>
+                            
+                            <div>
+                                <label for="projectDate" class="block text-sm font-medium text-gray-700 mb-1">Completion Date</label>
+                                <input type="date" id="projectDate" name="date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="projectImage" class="block text-sm font-medium text-gray-700 mb-1">Featured Image URL</label>
+                            <input type="url" id="projectImage" name="image" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="https://example.com/image.jpg">
+                            <p class="text-xs text-gray-500 mt-1">Enter a URL for the featured image. For testing, you can use Unsplash images.</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="projectSummary" class="block text-sm font-medium text-gray-700 mb-1">Project Summary</label>
+                            <textarea id="projectSummary" name="summary" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" required></textarea>
+                            <p class="text-xs text-gray-500 mt-1">A short summary of the project (displayed in portfolio listings).</p>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="editor" class="block text-sm font-medium text-gray-700 mb-1">Project Description</label>
+                            <div id="editor" class="h-64 border border-gray-300 rounded-md"></div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="projectUrl" class="block text-sm font-medium text-gray-700 mb-1">Project URL</label>
+                                <input type="url" id="projectUrl" name="url" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="https://example.com">
+                                <p class="text-xs text-gray-500 mt-1">Optional link to the live project.</p>
+                            </div>
+                            
+                            <div>
+                                <label for="projectStatus" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                                <select id="projectStatus" name="status" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="completed">Completed</option>
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="upcoming">Upcoming</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end space-x-4">
+                            <button type="button" id="cancelBtn" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors">
+                                Cancel
+                            </button>
+                            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
+                                Save Project
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quill Editor -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD5rUpAHDBwos7UCE9go2W2AgY-vAeaLd4",
+            authDomain: "vertax-marketing.firebaseapp.com",
+            projectId: "vertax-marketing",
+            storageBucket: "vertax-marketing.appspot.com",
+            messagingSenderId: "307006172894",
+            appId: "1:307006172894:web:6b724d5b8adffc5e13dc4f",
+            measurementId: "G-FTMVVRFX9P"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+        const projectsCollection = db.collection('portfolioProjects');
+        
+        // Check if user is logged in
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                window.location.href = 'login.html';
+            } else {
+                // Set admin status in localStorage when authenticated
+                localStorage.setItem('adminLoggedIn', 'true');
+                localStorage.setItem('adminUser', JSON.stringify({
+                    email: user.email,
+                    uid: user.uid
+                }));
+            }
+        });
+        
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            firebase.auth().signOut().then(() => {
+                localStorage.removeItem('adminLoggedIn');
+                localStorage.removeItem('adminUser');
+                window.location.href = 'login.html';
+            }).catch((error) => {
+                console.error('Error signing out: ', error);
+            });
+        });
+        
+        // Initialize Quill editor
+        let quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    [{ 'color': [] }, { 'background': [] }],
+                    ['link', 'image'],
+                    ['clean']
+                ]
+            }
+        });
+        
+        // DOM elements
+        const projectsListSection = document.getElementById('projectsListSection');
+        const projectFormSection = document.getElementById('projectFormSection');
+        const projectsTableBody = document.getElementById('projectsTableBody');
+        const noProjectsMessage = document.getElementById('noProjectsMessage');
+        const projectForm = document.getElementById('projectForm');
+        const formTitle = document.getElementById('formTitle');
+        
+        // Show Add/Edit form
+        function showForm(isEdit = false) {
+            projectsListSection.classList.add('hidden');
+            projectFormSection.classList.remove('hidden');
+            formTitle.textContent = isEdit ? 'Edit Portfolio Project' : 'Add New Portfolio Project';
+            
+            // Set today's date as default for new projects
+            if (!isEdit) {
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('projectDate').value = today;
+            }
+        }
+        
+        // Show projects list
+        function showList() {
+            projectFormSection.classList.add('hidden');
+            projectsListSection.classList.remove('hidden');
+            loadProjects();
+        }
+        
+        // Load projects from Firestore
+        function loadProjects() {
+            // Show loading state
+            projectsTableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center"><i class="fas fa-spinner fa-spin text-indigo-600 mr-2"></i> Loading projects...</td></tr>';
+            
+            projectsCollection.orderBy('createdAt', 'desc').get()
+                .then((querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        projectsTableBody.innerHTML = '';
+                        noProjectsMessage.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    noProjectsMessage.classList.add('hidden');
+                    projectsTableBody.innerHTML = '';
+                    
+                    querySnapshot.forEach(doc => {
+                        const project = doc.data();
+                        project.id = doc.id;
+                        
+                        const date = project.date ? new Date(project.date) : 
+                                    project.createdAt ? project.createdAt.toDate() : new Date();
+                        const formattedDate = date.toLocaleDateString();
+                        
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    ${project.image ? `<img src="${project.image}" alt="${project.title}" class="h-10 w-10 rounded-md object-cover mr-3">` : ''}
+                                    <div>
+                                        <div class="font-medium text-gray-900">${project.title}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">
+                                    ${project.category}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                ${project.client}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    ${project.status === 'completed' ? 'bg-green-100 text-green-800' : 
+                                      project.status === 'in-progress' ? 'bg-blue-100 text-blue-800' : 
+                                      'bg-yellow-100 text-yellow-800'}">
+                                    ${project.status === 'completed' ? 'Completed' : 
+                                      project.status === 'in-progress' ? 'In Progress' : 'Upcoming'}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button class="text-indigo-600 hover:text-indigo-900 mr-3 edit-btn" data-id="${project.id}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="text-red-600 hover:text-red-900 delete-btn" data-id="${project.id}">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        `;
+                        
+                        projectsTableBody.appendChild(row);
+                    });
+                    
+                    // Add event listeners to edit and delete buttons
+                    document.querySelectorAll('.edit-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const projectId = this.getAttribute('data-id');
+                            editProject(projectId);
+                        });
+                    });
+                    
+                    document.querySelectorAll('.delete-btn').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const projectId = this.getAttribute('data-id');
+                            deleteProject(projectId);
+                        });
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error loading projects:", error);
+                    projectsTableBody.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center text-red-500">Error loading projects: ${error.message}</td></tr>`;
+                });
+        }
+        
+        // Edit project
+        function editProject(projectId) {
+            projectsCollection.doc(projectId).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const project = doc.data();
+                        
+                        // Fill form with project data
+                        document.getElementById('projectId').value = projectId;
+                        document.getElementById('projectTitle').value = project.title || '';
+                        document.getElementById('projectCategory').value = project.category || 'Web Design';
+                        document.getElementById('projectClient').value = project.client || '';
+                        document.getElementById('projectImage').value = project.image || '';
+                        document.getElementById('projectSummary').value = project.summary || '';
+                        document.getElementById('projectUrl').value = project.url || '';
+                        
+                        // Set date
+                        if (project.date) {
+                            const date = new Date(project.date);
+                            document.getElementById('projectDate').value = date.toISOString().split('T')[0];
+                        } else if (project.createdAt) {
+                            const date = project.createdAt.toDate();
+                            document.getElementById('projectDate').value = date.toISOString().split('T')[0];
+                        }
+                        
+                        document.getElementById('projectStatus').value = project.status || 'completed';
+                        
+                        // Set Quill editor content
+                        quill.root.innerHTML = project.description || '';
+                        
+                        // Show form
+                        showForm(true);
+                    } else {
+                        alert('Project not found!');
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error getting project:", error);
+                    alert('Error loading project: ' + error.message);
+                });
+        }
+        
+        // Delete project
+        function deleteProject(projectId) {
+            if (confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
+                projectsCollection.doc(projectId).delete()
+                    .then(() => {
+                        alert('Project deleted successfully!');
+                        loadProjects();
+                    })
+                    .catch((error) => {
+                        console.error("Error deleting project:", error);
+                        alert('Error deleting project: ' + error.message);
+                    });
+            }
+        }
+        
+        // Save project
+        function saveProject(projectData, projectId = null) {
+            const saveBtn = document.querySelector('#projectForm button[type="submit"]');
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
+            
+            // Add timestamps
+            if (!projectId) {
+                projectData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+            }
+            projectData.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+            
+            // Save to Firestore
+            let savePromise;
+            
+            if (projectId) {
+                savePromise = projectsCollection.doc(projectId).update(projectData);
+            } else {
+                savePromise = projectsCollection.add(projectData);
+            }
+            
+            savePromise
+                .then(() => {
+                    alert(projectId ? 'Project updated successfully!' : 'Project created successfully!');
+                    showList();
+                })
+                .catch((error) => {
+                    console.error("Error saving project:", error);
+                    alert('Error saving project: ' + error.message);
+                    
+                    // Reset button
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = 'Save Project';
+                });
+        }
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load projects on page load
+            loadProjects();
+            
+            // Add New Project button
+            document.getElementById('addNewBtn').addEventListener('click', function() {
+                // Reset form
+                document.getElementById('projectForm').reset();
+                document.getElementById('projectId').value = '';
+                quill.root.innerHTML = '';
+                
+                // Set default date
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('projectDate').value = today;
+                
+                showForm(false);
+            });
+            
+            // Back to List button
+            document.getElementById('backToListBtn').addEventListener('click', function() {
+                showList();
+            });
+            
+            // Cancel button
+            document.getElementById('cancelBtn').addEventListener('click', function() {
+                showList();
+            });
+            
+            // Form submission
+            document.getElementById('projectForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const projectId = document.getElementById('projectId').value;
+                
+                // Get form data
+                const projectData = {
+                    title: document.getElementById('projectTitle').value,
+                    category: document.getElementById('projectCategory').value,
+                    client: document.getElementById('projectClient').value,
+                    image: document.getElementById('projectImage').value,
+                    summary: document.getElementById('projectSummary').value,
+                    description: quill.root.innerHTML,
+                    url: document.getElementById('projectUrl').value,
+                    date: document.getElementById('projectDate').value,
+                    status: document.getElementById('projectStatus').value
+                };
+                
+                // Validate required fields
+                if (!projectData.title || !projectData.client || !projectData.summary) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                // Save project
+                saveProject(projectData, projectId || null);
+            });
+            
+            // Search functionality
+            document.getElementById('searchProjects').addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const rows = projectsTableBody.querySelectorAll('tr');
+                
+                rows.forEach(row => {
+                    const title = row.querySelector('td:first-child')?.textContent.toLowerCase() || '';
+                    const category = row.querySelector('td:nth-child(2)')?.textContent.toLowerCase() || '';
+                    const client = row.querySelector('td:nth-child(3)')?.textContent.toLowerCase() || '';
+                    
+                    if (title.includes(searchTerm) || category.includes(searchTerm) || client.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Check for URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('edit')) {
+                const projectId = urlParams.get('edit');
+                editProject(projectId);
+            } else if (urlParams.has('action') && urlParams.get('action') === 'new') {
+                document.getElementById('addNewBtn').click();
+            }
+        });
+    </script>
+</body>
+</html>

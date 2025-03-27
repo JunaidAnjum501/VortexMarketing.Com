@@ -3,366 +3,445 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - TechSolutions</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- AOS Animation Library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-    <!-- Custom styles -->
-    <style type="text/tailwindcss">
-        @layer components {
-            .btn {
-                @apply px-6 py-3 rounded-lg font-medium transition-all duration-300;
-            }
-            .btn-primary {
-                @apply bg-indigo-600 text-white hover:bg-indigo-700;
-            }
-            .btn-secondary {
-                @apply bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white;
-            }
-            .page-transition {
-                animation: fadeIn 0.8s ease-in-out;
-            }
-            @keyframes fadeIn {
-                0% { opacity: 0; transform: translateY(20px); }
-                100% { opacity: 1; transform: translateY(0); }
-            }
-            .service-card {
-                transition: all 0.3s ease;
-            }
-            .service-card:hover {
-                transform: translateY(-10px);
-            }
-            .service-icon {
-                transition: all 0.3s ease;
-            }
-            .service-card:hover .service-icon {
-                background-color: #4f46e5;
-                color: white;
-            }
-            .hero-wave {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                overflow: hidden;
-                line-height: 0;
-            }
-            .floating-element {
-                animation: float 6s ease-in-out infinite;
-            }
-            @keyframes float {
-                0% { transform: translateY(0px); }
-                50% { transform: translateY(-20px); }
-                100% { transform: translateY(0px); }
-            }
+    <title>Our Services | Vortex Marketing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        /* Animation Keyframes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes float-delay {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes float-slow {
+            0% { transform: translateY(0px) rotate(45deg); }
+            50% { transform: translateY(-10px) rotate(45deg); }
+            100% { transform: translateY(0px) rotate(45deg); }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-float-delay {
+            animation: float-delay 8s ease-in-out infinite;
+        }
+
+        .animate-float-slow {
+            animation: float-slow 10s ease-in-out infinite;
+        }
+
+        /* Custom Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4f46e5;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca;
+        }
+
+        .btn-secondary {
+            background-color: #f3f4f6;
+            color: #4f46e5;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e5e7eb;
+        }
+
+        /* Hamburger Menu */
+        .hamburger-line {
+            display: block;
+            width: 24px;
+            height: 2px;
+            margin: 5px 0;
+            background-color: #4f46e5;
+            transition: all 0.3s ease;
+        }
+
+        /* Blur Effect */
+        .blur-3xl {
+            filter: blur(64px);
         }
     </style>
 </head>
-<body class="font-[Poppins] bg-gray-50">
-    <!-- Header Section -->
-    <header class="fixed w-full bg-white shadow-md z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="logo">
-                <h1 class="text-2xl font-bold">Tech<span class="text-indigo-600">Solutions</span></h1>
-            </div>
-            <nav>
-                <ul class="hidden md:flex space-x-8">
-                    <li><a href="index.html" class="text-gray-700 hover:text-indigo-600 transition-colors">Home</a></li>
-                    <li><a href="services.html" class="text-indigo-600 font-medium">Services</a></li>
-                    <li><a href="about.html" class="text-gray-700 hover:text-indigo-600 transition-colors">About</a></li>
-                    <li><a href="portfolio.html" class="text-gray-700 hover:text-indigo-600 transition-colors">Portfolio</a></li>
-                    <li><a href="testimonials.html" class="text-gray-700 hover:text-indigo-600 transition-colors">Testimonials</a></li>
-                    <li><a href="contact.html" class="text-gray-700 hover:text-indigo-600 transition-colors">Contact</a></li>
-                </ul>
-                <div class="md:hidden hamburger cursor-pointer">
-                    <span class="block w-6 h-0.5 bg-gray-700 my-1.5"></span>
-                    <span class="block w-6 h-0.5 bg-gray-700 my-1.5"></span>
-                    <span class="block w-6 h-0.5 bg-gray-700 my-1.5"></span>
+<body>
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold text-indigo-600">Vortex<span class="text-gray-800">Marketing</span></a>
                 </div>
-            </nav>
-        </div>
-        <!-- Mobile Menu -->
-        <div class="mobile-menu hidden bg-white w-full py-4 px-6 md:hidden">
-            <ul class="space-y-4">
-                <li><a href="index.html" class="text-gray-700 hover:text-indigo-600 transition-colors block">Home</a></li>
-                <li><a href="services.html" class="text-indigo-600 font-medium block">Services</a></li>
-                <li><a href="about.html" class="text-gray-700 hover:text-indigo-600 transition-colors block">About</a></li>
-                <li><a href="portfolio.html" class="text-gray-700 hover:text-indigo-600 transition-colors block">Portfolio</a></li>
-                <li><a href="testimonials.html" class="text-gray-700 hover:text-indigo-600 transition-colors block">Testimonials</a></li>
-                <li><a href="contact.html" class="text-gray-700 hover:text-indigo-600 transition-colors block">Contact</a></li>
-            </ul>
+                
+                <nav class="hidden md:flex space-x-10">
+                    <a href="index.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Home</a>
+                    <a href="services.html" class="text-indigo-600 font-medium">Services</a>
+                    <a href="about.html" class="text-gray-600 hover:text-indigo-600 transition-colors">About</a>
+                    <a href="portfolio.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
+                    <a href="testimonials.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Testimonials</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
+                </nav>
+                
+                <div class="hidden md:flex">
+                    <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+                </div>
+                
+                <button class="hamburger md:hidden focus:outline-none">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+            
+            <div class="mobile-menu hidden md:hidden mt-4 py-4 border-t">
+                <a href="index.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Home</a>
+                <a href="services.html" class="block py-2 text-indigo-600 font-medium">Services</a>
+                <a href="about.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">About</a>
+                <a href="portfolio.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
+                <a href="testimonials.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Testimonials</a>
+                <a href="contact.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
+                <a href="contact.html" class="btn btn-primary mt-4 inline-block">Get a Quote</a>
+            </div>
         </div>
     </header>
 
-    <!-- Page Banner -->
-    <section class="pt-32 pb-10 bg-gradient-to-r from-indigo-600 to-blue-500 text-white relative overflow-hidden">
-        <div class="container mx-auto px-6 text-center relative z-10">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">Our Services</h1>
-            <p class="text-xl max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">We provide comprehensive IT solutions tailored to meet your business needs and drive digital transformation.</p>
+    <!-- Hero Section - New Design -->
+    <section class="relative pt-32 pb-20 bg-gradient-to-br from-indigo-900 via-indigo-800 to-blue-900 overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-72 h-72 bg-indigo-500 rounded-full opacity-20 blur-3xl"></div>
+            <div class="absolute top-40 -left-20 w-96 h-96 bg-blue-600 rounded-full opacity-20 blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-indigo-400 rounded-full opacity-20 blur-3xl"></div>
+            
+            <!-- Floating Shapes -->
+            <div class="absolute top-1/4 left-1/4 w-12 h-12 bg-white opacity-10 rounded-lg animate-float"></div>
+            <div class="absolute top-1/3 right-1/3 w-8 h-8 bg-white opacity-10 rounded-full animate-float-delay"></div>
+            <div class="absolute bottom-1/4 left-1/3 w-10 h-10 bg-white opacity-10 rounded-lg rotate-45 animate-float-slow"></div>
         </div>
         
-        <!-- Decorative Elements -->
-        <div class="absolute top-20 left-10 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-10 right-10 w-80 h-80 bg-blue-300 opacity-10 rounded-full blur-3xl"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0">
+                    <div class="text-center lg:text-left" data-aos="fade-right">
+                        <span class="inline-block py-1 px-3 bg-indigo-500 bg-opacity-30 text-white text-sm font-medium rounded-full mb-4">PROFESSIONAL SERVICES</span>
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">Marketing Solutions <span class="text-indigo-300">That Drive Results</span></h1>
+                        <p class="text-lg text-indigo-100 mb-8 max-w-lg mx-auto lg:mx-0">We offer comprehensive marketing services tailored to your business needs, helping you stand out in today's competitive digital landscape.</p>
+                        <div class="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                            <a href="#services" class="btn bg-white text-indigo-700 hover:bg-indigo-50 shadow-lg">Explore Services</a>
+                            <a href="contact.html" class="btn border-2 border-white text-white hover:bg-white hover:text-indigo-700">Get Started</a>
+                        </div>
+                        
+                                            <!-- Trust Indicators -->
+                                            <div class="mt-12 flex flex-wrap justify-center lg:justify-start gap-6">
+                                                <div class="flex items-center bg-white bg-opacity-15 rounded-lg p-3 shadow-lg backdrop-filter backdrop-blur-sm">
+                                                    <div class="text-yellow-400 mr-2">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                    <span class="text-indigo-300 font-medium text-sm">5.0 Rating</span>
+                                                </div>
+                                                <div class="flex items-center bg-white bg-opacity-15 rounded-lg p-3 shadow-lg backdrop-filter backdrop-blur-sm">
+                                                    <div class="bg-white bg-opacity-30 rounded-full w-8 h-8 flex items-center justify-center mr-2">
+                                                        <i class="fas fa-check text-green-400"></i>
+                                                    </div>
+                                                    <span class="text-indigo-300 font-medium text-sm">100+ Clients</span>
+                                                </div>
+                                                <div class="flex items-center bg-white bg-opacity-15 rounded-lg p-3 shadow-lg backdrop-filter backdrop-blur-sm">
+                                                    <div class="bg-white bg-opacity-30 rounded-full w-8 h-8 flex items-center justify-center mr-2">
+                                                        <i class="fas fa-trophy text-yellow-400"></i>
+                                                    </div>
+                                                    <span class="text-indigo-300 font-medium text-sm">Award Winning</span>
+                                                </div>
+                                            </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2" data-aos="fade-left" data-aos-delay="200">
+                    <div class="relative">
+                        <!-- Main Image -->
+                        <div class="bg-white p-2 rounded-lg shadow-2xl rotate-2 transform hover:rotate-0 transition-transform duration-300">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Marketing Services" class="rounded-lg w-full">
+                        </div>
+                        
+                        <!-- Floating Card 1 -->
+                        <div class="absolute -top-10 -left-10 bg-white rounded-lg shadow-xl p-4 w-48 animate-float">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 mr-3">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-gray-800 font-semibold text-sm">Growth Rate</h4>
+                                    <p class="text-green-600 font-bold">+127%</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Card 2 -->
+                        <div class="absolute -bottom-8 -right-8 bg-white rounded-lg shadow-xl p-4 w-48 animate-float-delay">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 mr-3">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-gray-800 font-semibold text-sm">Conversion</h4>
+                                    <p class="text-indigo-600 font-bold">+43%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-        <!-- SVG Wave -->
-        <div class="hero-wave">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" class="w-full h-20">
-                <path fill="#ffffff" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,138.7C672,139,768,181,864,181.3C960,181,1056,139,1152,133.3C1248,128,1344,160,1392,176L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        <!-- Wave Divider -->
+        <div class="absolute bottom-0 left-0 w-full">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="w-full h-auto">
+                <path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
             </svg>
         </div>
     </section>
 
-    <!-- Services Overview Section -->
-    <section class="py-16 bg-white">
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white relative">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Comprehensive IT Solutions</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Our team of experts delivers innovative solutions across various domains to help businesses thrive in the digital landscape.</p>
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">What We Offer</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">Our Marketing Services</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We provide a comprehensive range of marketing services to help your business grow and succeed in the digital landscape.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service Card 1 -->
-                <div class="service-card bg-white rounded-lg shadow-lg p-8" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-icon w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-laptop-code text-2xl"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Service 1: SEO -->
+                <div class="bg-white rounded-lg shadow-lg p-8 transition-transform duration-300 hover:-translate-y-2" data-aos="fade-up">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-search text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Search Engine Optimization</h3>
+                    <p class="text-gray-600 mb-4">Improve your website's visibility in search engines and drive organic traffic with our comprehensive SEO strategies.</p>
+                    <ul class="text-gray-600 mb-6 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Keyword Research & Analysis</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>On-Page & Off-Page Optimization</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Local SEO Strategies</span>
+                        </li>
+                    </ul>
+                    <a href="seo-services.html" class="text-indigo-600 font-medium hover:text-indigo-800 transition-colors flex items-center">
+                        Learn More
+                        <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                </div>
+                
+                <!-- Service 2: Web Development -->
+                <div class="bg-white rounded-lg shadow-lg p-8 transition-transform duration-300 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-laptop-code text-indigo-600 text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-800 mb-3">Web Development</h3>
-                    <p class="text-gray-600 mb-4">Custom websites and web applications designed to enhance your online presence and streamline business operations.</p>
-                    <ul class="text-gray-600 space-y-2 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Responsive Design</span>
+                    <p class="text-gray-600 mb-4">Create stunning, responsive websites that engage visitors and convert them into customers.</p>
+                    <ul class="text-gray-600 mb-6 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Custom Website Design</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>E-commerce Solutions</span>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>E-commerce Development</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Content Management Systems</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Progressive Web Apps</span>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>CMS Implementation</span>
                         </li>
                     </ul>
-                    <a href="./web-development.html" class="text-indigo-600 font-medium hover:text-indigo-700 transition-colors flex items-center">
+                    <a href="web-development.html" class="text-indigo-600 font-medium hover:text-indigo-800 transition-colors flex items-center">
                         Learn More
-                        <i class="fas fa-arrow-right ml-2"></i>
+                        <i class="fas fa-arrow-right ml-2 text-sm"></i>
                     </a>
                 </div>
                 
-                <!-- Service Card 2 -->
-                <div class="service-card bg-white rounded-lg shadow-lg p-8" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-icon w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-mobile-alt text-2xl"></i>
+                <!-- Service 3: Digital Marketing -->
+                <div class="bg-white rounded-lg shadow-lg p-8 transition-transform duration-300 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-bullhorn text-indigo-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Mobile App Development</h3>
-                    <p class="text-gray-600 mb-4">Native and cross-platform mobile applications that provide seamless user experiences across all devices.</p>
-                    <ul class="text-gray-600 space-y-2 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>iOS & Android Development</span>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Digital Marketing</h3>
+                    <p class="text-gray-600 mb-4">Reach your target audience and drive conversions with our comprehensive digital marketing services.</p>
+                    <ul class="text-gray-600 mb-6 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Social Media Marketing</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Cross-Platform Solutions</span>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>PPC Advertising</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>UI/UX Design</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>App Maintenance & Support</span>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Email Marketing Campaigns</span>
                         </li>
                     </ul>
-                    <a href="./mobile-app-development.html" class="text-indigo-600 font-medium hover:text-indigo-700 transition-colors flex items-center">
+                    <a href="digital-marketing.html" class="text-indigo-600 font-medium hover:text-indigo-800 transition-colors flex items-center">
                         Learn More
-                        <i class="fas fa-arrow-right ml-2"></i>
+                        <i class="fas fa-arrow-right ml-2 text-sm"></i>
                     </a>
                 </div>
                 
-                <!-- Service Card 3 -->
-                <div class="service-card bg-white rounded-lg shadow-lg p-8" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-icon w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-cloud text-2xl"></i>
+                <!-- Service 4: Content Writing -->
+                <div class="bg-white rounded-lg shadow-lg p-8 transition-transform duration-300 hover:-translate-y-2" data-aos="fade-up">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-pen-fancy text-indigo-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Cloud Solutions</h3>
-                    <p class="text-gray-600 mb-4">Scalable cloud infrastructure and migration services to optimize your IT operations and reduce costs.</p>
-                    <ul class="text-gray-600 space-y-2 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Cloud Migration</span>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Content Writing</h3>
+                    <p class="text-gray-600 mb-4">Engage your audience with compelling, SEO-optimized content that drives traffic and conversions.</p>
+                    <ul class="text-gray-600 mb-6 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Blog Posts & Articles</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Infrastructure as a Service (IaaS)</span>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Website Copy</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Platform as a Service (PaaS)</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Cloud Security Solutions</span>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Email & Social Media Content</span>
                         </li>
                     </ul>
-                    <a href="./cloud-solutions.html" class="text-indigo-600 font-medium hover:text-indigo-700 transition-colors flex items-center">
+                    <a href="content-writing.html" class="text-indigo-600 font-medium hover:text-indigo-800 transition-colors flex items-center">
                         Learn More
-                        <i class="fas fa-arrow-right ml-2"></i>
+                        <i class="fas fa-arrow-right ml-2 text-sm"></i>
                     </a>
                 </div>
                 
-                <!-- Service Card 4 -->
-                <div class="service-card bg-white rounded-lg shadow-lg p-8" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-icon w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-shield-alt text-2xl"></i>
+                <!-- Service 5: Logo Design -->
+                <div class="bg-white rounded-lg shadow-lg p-8 transition-transform duration-300 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-paint-brush text-indigo-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Cybersecurity</h3>
-                    <p class="text-gray-600 mb-4">Comprehensive security solutions to protect your business from cyber threats and ensure data integrity.</p>
-                    <ul class="text-gray-600 space-y-2 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Security Assessments</span>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Logo Design</h3>
+                    <p class="text-gray-600 mb-4">Create a memorable brand identity with our professional logo design services.</p>
+                    <ul class="text-gray-600 mb-6 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Custom Logo Creation</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Penetration Testing</span>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Brand Identity Design</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Security Monitoring</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Incident Response</span>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Logo Revisions & Refinement</span>
                         </li>
                     </ul>
-                    <a href="./cybersecurity.html" class="text-indigo-600 font-medium hover:text-indigo-700 transition-colors flex items-center">
+                    <a href="logo-design.html" class="text-indigo-600 font-medium hover:text-indigo-800 transition-colors flex items-center">
                         Learn More
-                        <i class="fas fa-arrow-right ml-2"></i>
+                        <i class="fas fa-arrow-right ml-2 text-sm"></i>
                     </a>
                 </div>
                 
-                <!-- Service Card 5 -->
-                <div class="service-card bg-white rounded-lg shadow-lg p-8" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-icon w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-chart-line text-2xl"></i>
+                <!-- Service 6: UI/UX Design -->
+                <div class="bg-white rounded-lg shadow-lg p-8 transition-transform duration-300 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-desktop text-indigo-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Data Analytics</h3>
-                    <p class="text-gray-600 mb-4">Advanced data analytics solutions to help you make informed decisions and gain valuable insights.</p>
-                    <ul class="text-gray-600 space-y-2 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Business Intelligence</span>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">UI/UX Design</h3>
+                    <p class="text-gray-600 mb-4">Create intuitive, user-friendly interfaces that enhance user experience and drive engagement.</p>
+                    <ul class="text-gray-600 mb-6 space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>User Interface Design</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Data Visualization</span>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>User Experience Optimization</span>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Predictive Analytics</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Big Data Solutions</span>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Wireframing & Prototyping</span>
                         </li>
                     </ul>
-                    <a href="./data-analytics.html" class="text-indigo-600 font-medium hover:text-indigo-700 transition-colors flex items-center">
+                    <a href="ui-ux-design.html" class="text-indigo-600 font-medium hover:text-indigo-800 transition-colors flex items-center">
                         Learn More
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-                
-                <!-- Service Card 6 -->
-                <div class="service-card bg-white rounded-lg shadow-lg p-8" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-icon w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-brain text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">AI & Machine Learning</h3>
-                    <p class="text-gray-600 mb-4">Innovative AI solutions to automate processes, enhance customer experiences, and drive business growth.</p>
-                    <ul class="text-gray-600 space-y-2 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Machine Learning Models</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Natural Language Processing</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>Computer Vision</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-indigo-600 mt-1 mr-2"></i>
-                            <span>AI-Powered Automation</span>
-                        </li>
-                    </ul>
-                    <a href="#" class="text-indigo-600 font-medium hover:text-indigo-700 transition-colors flex items-center">
-                        Learn More
-                        <i class="fas fa-arrow-right ml-2"></i>
+                        <i class="fas fa-arrow-right ml-2 text-sm"></i>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Service Process Section -->
-    <section class="py-20 bg-gray-50 relative overflow-hidden">
-        <div class="container mx-auto px-6 relative z-10">
+    <!-- Process Section -->
+    <section class="py-20 bg-gray-50 relative">
+        <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">Our Approach</span>
-                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">Our Service Delivery Process</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">We follow a structured approach to ensure high-quality service delivery and client satisfaction.</p>
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">How We Work</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">Our Marketing Process</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We follow a proven process to ensure the success of your marketing campaigns.</p>
             </div>
             
-            <div class="flex flex-col md:flex-row items-center justify-between relative">
-                <!-- SVG Connection Line for Desktop -->
-                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-indigo-200 -translate-y-1/2 z-0"></div>
-                
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" data-aos="fade-up">
                 <!-- Step 1 -->
-                <div class="md:w-1/4 text-center mb-10 md:mb-0 relative z-10" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-white p-8 rounded-lg shadow-md text-center relative">
                     <div class="bg-white w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg border-4 border-indigo-100">
                         <span class="text-indigo-600 text-3xl font-bold">1</span>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Consultation</h3>
-                    <p class="text-gray-600">We start by understanding your business needs and objectives.</p>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Discovery</h3>
+                    <p class="text-gray-600">We learn about your business, goals, and target audience to create a tailored strategy.</p>
                 </div>
                 
                 <!-- Step 2 -->
-                <div class="md:w-1/4 text-center mb-10 md:mb-0 relative z-10" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-white p-8 rounded-lg shadow-md text-center relative">
                     <div class="bg-white w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg border-4 border-indigo-100">
                         <span class="text-indigo-600 text-3xl font-bold">2</span>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-800 mb-2">Strategy</h3>
-                    <p class="text-gray-600">We develop a tailored strategy to address your specific requirements.</p>
+                    <p class="text-gray-600">We develop a comprehensive marketing strategy aligned with your business objectives.</p>
                 </div>
                 
                 <!-- Step 3 -->
-                <div class="md:w-1/4 text-center mb-10 md:mb-0 relative z-10" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-white p-8 rounded-lg shadow-md text-center relative">
                     <div class="bg-white w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg border-4 border-indigo-100">
                         <span class="text-indigo-600 text-3xl font-bold">3</span>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-800 mb-2">Implementation</h3>
-                    <p class="text-gray-600">Our experts implement the solution with precision and attention to detail.</p>
+                    <p class="text-gray-600">We execute the strategy with precision, focusing on quality and results.</p>
                 </div>
                 
                 <!-- Step 4 -->
-                <div class="md:w-1/4 text-center relative z-10" data-aos="fade-up" data-aos-delay="400">
+                <div class="bg-white p-8 rounded-lg shadow-md text-center relative">
                     <div class="bg-white w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg border-4 border-indigo-100">
                         <span class="text-indigo-600 text-3xl font-bold">4</span>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Support</h3>
-                    <p class="text-gray-600">We provide ongoing support and maintenance to ensure optimal performance.</p>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Optimization</h3>
+                    <p class="text-gray-600">We continuously analyze results and refine our approach for maximum ROI.</p>
                 </div>
             </div>
         </div>
@@ -386,186 +465,214 @@
     <section class="py-20 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">What Our Clients Say</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Don't just take our word for it. Here's what our clients have to say about our services.</p>
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">Client Feedback</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">What Our Clients Say</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Don't just take our word for it. Here's what our clients have to say about our marketing services.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
-                <div class="bg-gray-50 rounded-lg p-8 shadow-md" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 flex">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+            <div class="max-w-4xl mx-auto relative" data-aos="fade-up">
+                <!-- Testimonials Slider -->
+                <div class="testimonial-slider overflow-hidden">
+                    <div class="testimonial-track flex transition-transform duration-500">
+                        <!-- Testimonial Slides -->
+                        <div class="testimonial-slide w-full flex-shrink-0 p-4">
+                            <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+                                <div class="flex items-center mb-6">
+                                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Client" class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-800">Sarah Johnson</h4>
+                                        <p class="text-indigo-600">CEO, TechStart Inc.</p>
+                                    </div>
+                                </div>
+                                <div class="text-yellow-400 mb-4">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="text-gray-600 italic">"Vortex Marketing transformed our online presence completely. Their SEO strategies helped us rank on the first page for our key terms, and our organic traffic has increased by 215% in just six months. Highly recommended!"</p>
+                            </div>
                         </div>
-                    </div>
-                    <p class="text-gray-600 mb-6">"TechSolutions transformed our business with their web development services. The new website has significantly improved our online presence and customer engagement."</p>
-                    <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
-                        <div>
-                            <h4 class="text-gray-800 font-semibold">Michael Johnson</h4>
-                            <p class="text-gray-600 text-sm">CEO, Johnson Enterprises</p>
+                        
+                        <div class="testimonial-slide w-full flex-shrink-0 p-4">
+                            <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+                                <div class="flex items-center mb-6">
+                                    <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Client" class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-800">Michael Rodriguez</h4>
+                                        <p class="text-indigo-600">Marketing Director, Retail Solutions</p>
+                                    </div>
+                                </div>
+                                <div class="text-yellow-400 mb-4">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="text-gray-600 italic">"The team at Vortex Marketing are true professionals. They redesigned our website and implemented a digital marketing strategy that increased our conversions by 43%. Their attention to detail and commitment to results is outstanding."</p>
+                            </div>
+                        </div>
+                        
+                        <div class="testimonial-slide w-full flex-shrink-0 p-4">
+                            <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+                                <div class="flex items-center mb-6">
+                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Client" class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-800">Emily Chen</h4>
+                                        <p class="text-indigo-600">Founder, Wellness Collective</p>
+                                    </div>
+                                </div>
+                                <div class="text-yellow-400 mb-4">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="text-gray-600 italic">"Working with Vortex Marketing has been a game-changer for our small business. Their content strategy and social media management have helped us build a loyal community and establish ourselves as industry leaders. Worth every penny!"</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Testimonial 2 -->
-                <div class="bg-gray-50 rounded-lg p-8 shadow-md" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 flex">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
+                <!-- Testimonial Navigation -->
+                <div class="flex justify-between items-center mt-8">
+                    <button class="testimonial-prev w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-indigo-600 hover:bg-indigo-50 transition-colors focus:outline-none">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    
+                    <div class="flex space-x-2">
+                        <button class="testimonial-dot w-3 h-3 rounded-full bg-indigo-600"></button>
+                        <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300"></button>
+                        <button class="testimonial-dot w-3 h-3 rounded-full bg-gray-300"></button>
                     </div>
-                    <p class="text-gray-600 mb-6">"The mobile app developed by TechSolutions has revolutionized how we interact with our customers. The user experience is exceptional, and the app has received rave reviews."</p>
-                    <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
-                        <div>
-                            <h4 class="text-gray-800 font-semibold">Sarah Williams</h4>
-                            <p class="text-gray-600 text-sm">Marketing Director, Williams & Co.</p>
+                    
+                    <button class="testimonial-next w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center text-indigo-600 hover:bg-indigo-50 transition-colors focus:outline-none">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">Questions & Answers</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">Frequently Asked Questions</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Find answers to common questions about our marketing services.</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto" data-aos="fade-up">
+                <!-- FAQ Item 1 -->
+                <div class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="faq-toggle w-full px-8 py-6 text-left focus:outline-none">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-800">What makes your marketing services different?</h3>
+                            <i class="fas fa-plus text-indigo-600 transition-transform duration-300"></i>
                         </div>
+                    </button>
+                    <div class="faq-content px-8 py-6 border-t border-gray-100 hidden">
+                        <p class="text-gray-600">Our marketing services stand out because we take a data-driven approach tailored to your specific business goals. We don't believe in one-size-fits-all solutions. Instead, we develop customized strategies based on thorough market research, competitor analysis, and your unique value proposition. Additionally, we provide transparent reporting and focus on measurable results, ensuring you see a clear ROI from your marketing investment.</p>
                     </div>
                 </div>
                 
-                <!-- Testimonial 3 -->
-                <div class="bg-gray-50 rounded-lg p-8 shadow-md" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 flex">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                <!-- FAQ Item 2 -->
+                <div class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="faq-toggle w-full px-8 py-6 text-left focus:outline-none">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-800">How long does it take to see results?</h3>
+                            <i class="fas fa-plus text-indigo-600 transition-transform duration-300"></i>
                         </div>
-                    </div>
-                    <p class="text-gray-600 mb-6">"TechSolutions' cybersecurity services have given us peace of mind. Their proactive approach to security has protected our systems from multiple threats and potential breaches."</p>
-                    <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/men/62.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
-                        <div>
-                            <h4 class="text-gray-800 font-semibold">David Chen</h4>
-                            <p class="text-gray-600 text-sm">CTO, Chen Technologies</p>
-                        </div>
+                    </button>
+                    <div class="faq-content px-8 py-6 border-t border-gray-100 hidden">
+                        <p class="text-gray-600">The timeline for seeing results varies depending on the services you choose and your starting point. For paid advertising campaigns, you might see results within days. Content marketing and SEO typically take 3-6 months to show significant improvements, as these are long-term strategies. Website development projects usually take 4-12 weeks depending on complexity. During our initial consultation, we'll provide you with a more specific timeline based on your goals and chosen services.</p>
                     </div>
                 </div>
-            </div>
-            
-            <div class="text-center mt-12" data-aos="fade-up">
-                <a href="testimonials.html" class="btn btn-primary">View All Testimonials</a>
+                
+                <!-- FAQ Item 3 -->
+                <div class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="faq-toggle w-full px-8 py-6 text-left focus:outline-none">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-800">Do you work with small businesses?</h3>
+                            <i class="fas fa-plus text-indigo-600 transition-transform duration-300"></i>
+                        </div>
+                    </button>
+                    <div class="faq-content px-8 py-6 border-t border-gray-100 hidden">
+                        <p class="text-gray-600">Absolutely! We work with businesses of all sizes, from startups and small local businesses to large enterprises. We understand that small businesses have unique challenges and budget considerations, which is why we offer scalable solutions that can grow with your business. Our team will work closely with you to develop a marketing strategy that maximizes your budget while delivering the best possible results.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="faq-toggle w-full px-8 py-6 text-left focus:outline-none">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-800">What industries do you specialize in?</h3>
+                            <i class="fas fa-plus text-indigo-600 transition-transform duration-300"></i>
+                        </div>
+                    </button>
+                    <div class="faq-content px-8 py-6 border-t border-gray-100 hidden">
+                        <p class="text-gray-600">While we have experience across many industries, we have particular expertise in e-commerce, SaaS, healthcare, professional services, and education. That said, our marketing principles and strategies can be adapted to virtually any industry. Our diverse team brings a wealth of knowledge from different sectors, allowing us to understand the unique challenges and opportunities in your specific market.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="mb-6 bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="faq-toggle w-full px-8 py-6 text-left focus:outline-none">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-800">How do you measure success?</h3>
+                            <i class="fas fa-plus text-indigo-600 transition-transform duration-300"></i>
+                        </div>
+                    </button>
+                    <div class="faq-content px-8 py-6 border-t border-gray-100 hidden">
+                        <p class="text-gray-600">We measure success based on the specific goals and KPIs established at the beginning of our partnership. These might include website traffic, conversion rates, lead generation, social media engagement, search engine rankings, or revenue growth. We provide regular reports that track these metrics, showing the direct impact of our marketing efforts. Our focus is always on delivering measurable results that contribute to your business growth.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-gradient-to-r from-indigo-600 to-blue-500 text-white relative overflow-hidden">
-        <div class="container mx-auto px-6 text-center relative z-10">
-            <h2 class="text-3xl font-bold mb-6" data-aos="fade-up">Ready to Transform Your Business?</h2>
-            <p class="text-xl max-w-2xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="100">Let's discuss how our services can help you achieve your business goals and drive digital innovation.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4" data-aos="fade-up" data-aos-delay="200">
-                <a href="contact.html" class="btn btn-secondary bg-transparent border-2 border-white text-white hover:bg-white hover:text-indigo-600">Contact Us</a>
-                <a href="#" class="btn bg-white text-indigo-600 hover:bg-gray-100">Schedule a Consultation</a>
+    <section class="py-20 bg-gradient-to-r from-indigo-600 to-indigo-800 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full opacity-10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                    <defs>
+                        <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 0 10 L 40 10 M 10 0 L 10 40" stroke="white" stroke-width="0.5" fill="none" />
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+                </svg>
             </div>
+            <div class="absolute -top-20 -right-20 w-64 h-64 bg-white rounded-full opacity-10 blur-3xl"></div>
+            <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-white rounded-full opacity-10 blur-3xl"></div>
         </div>
         
-        <!-- Decorative SVG Elements -->
-        <div class="absolute top-0 left-0 w-full overflow-hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" class="w-full h-20 rotate-180">
-                <path fill="#ffffff" fill-opacity="0.1" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,138.7C672,139,768,181,864,181.3C960,181,1056,139,1152,133.3C1248,128,1344,160,1392,176L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-            </svg>
-        </div>
-        
-        <div class="absolute bottom-0 left-0 w-full overflow-hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" class="w-full h-20">
-                <path fill="#1e1e1e" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,208C1248,192,1344,192,1392,192L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-            </svg>
-        </div>
-        
-        <!-- Floating Shapes -->
-        <div class="absolute top-20 left-10 w-20 h-20 bg-white opacity-10 rounded-full floating-element" style="animation-delay: 0s;"></div>
-        <div class="absolute bottom-20 right-10 w-32 h-32 bg-blue-300 opacity-10 rounded-full floating-element" style="animation-delay: 1s;"></div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="py-20 bg-gray-900 text-white relative overflow-hidden">
         <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-indigo-400 font-semibold text-sm uppercase tracking-wider">Questions & Answers</span>
-                <h2 class="text-3xl font-bold mb-4 mt-2">Frequently Asked Questions</h2>
-                <p class="text-gray-300 max-w-2xl mx-auto">Find answers to common questions about our services and how we can help your business.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- FAQ Item 1 -->
-                <div class="bg-gray-800 rounded-lg p-6 shadow-lg" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-xl font-semibold mb-3 flex items-start">
-                        <span class="text-indigo-400 mr-3 text-2xl">Q.</span>
-                        <span>What industries do you serve?</span>
-                    </h3>
-                    <p class="text-gray-300 pl-8">We serve a wide range of industries including healthcare, finance, retail, manufacturing, education, and more. Our solutions are tailored to meet the specific needs of each industry.</p>
+            <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Transform Your Marketing Strategy?</h2>
+                <p class="text-indigo-100 text-lg mb-10 max-w-2xl mx-auto">Let's work together to create a customized marketing plan that drives results for your business. Schedule a free consultation today.</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="contact.html" class="btn bg-white text-indigo-700 hover:bg-indigo-50 shadow-lg">Get Started</a>
+                    <a href="portfolio.html" class="btn border-2 border-white text-white hover:bg-white hover:text-indigo-700">View Our Work</a>
                 </div>
-                
-                <!-- FAQ Item 2 -->
-                <div class="bg-gray-800 rounded-lg p-6 shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="text-xl font-semibold mb-3 flex items-start">
-                        <span class="text-indigo-400 mr-3 text-2xl">Q.</span>
-                        <span>How long does it take to develop a custom solution?</span>
-                    </h3>
-                    <p class="text-gray-300 pl-8">The timeline varies depending on the complexity of the project. Simple websites may take 2-4 weeks, while complex applications can take several months. We provide a detailed timeline during the consultation phase.</p>
-                </div>
-                
-                <!-- FAQ Item 3 -->
-                <div class="bg-gray-800 rounded-lg p-6 shadow-lg" data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="text-xl font-semibold mb-3 flex items-start">
-                        <span class="text-indigo-400 mr-3 text-2xl">Q.</span>
-                        <span>Do you provide ongoing support after project completion?</span>
-                    </h3>
-                    <p class="text-gray-300 pl-8">Yes, we offer various support and maintenance packages to ensure your solution continues to perform optimally. Our team is available to address any issues and implement updates as needed.</p>
-                </div>
-                
-                <!-- FAQ Item 4 -->
-                <div class="bg-gray-800 rounded-lg p-6 shadow-lg" data-aos="fade-up" data-aos-delay="400">
-                    <h3 class="text-xl font-semibold mb-3 flex items-start">
-                        <span class="text-indigo-400 mr-3 text-2xl">Q.</span>
-                        <span>How do you ensure the security of your solutions?</span>
-                    </h3>
-                    <p class="text-gray-300 pl-8">Security is a top priority. We implement industry best practices, conduct regular security audits, use encryption, and follow secure coding standards to protect your data and systems from threats.</p>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12" data-aos="fade-up">
-                <a href="contact.html" class="btn bg-indigo-600 text-white hover:bg-indigo-700">Ask Us a Question</a>
             </div>
         </div>
-        
-        <!-- SVG Background Pattern -->
-        <svg class="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M0 10 L40 10" stroke="#3730a3" stroke-width="0.5" stroke-opacity="0.1" fill="none" />
-                    <path d="M10 0 L10 40" stroke="#3730a3" stroke-width="0.5" stroke-opacity="0.1" fill="none" />
-                </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid-pattern)" />
-        </svg>
-        
-        <!-- Floating Elements -->
-        <div class="absolute top-40 right-20 w-24 h-24 bg-indigo-500 opacity-10 rounded-full floating-element" style="animation-delay: 0.5s;"></div>
-        <div class="absolute bottom-40 left-20 w-32 h-32 bg-blue-500 opacity-10 rounded-full floating-element" style="animation-delay: 1.5s;"></div>
     </section>
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white pt-16 pb-8">
         <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                 <!-- Company Info -->
                 <div>
-                    <h3 class="text-2xl font-bold mb-6">Tech<span class="text-indigo-400">Solutions</span></h3>
-                    <p class="text-gray-400 mb-6">Providing innovative IT solutions to help businesses thrive in the digital world.</p>
+                    <h3 class="text-xl font-bold mb-6">Vortex Marketing</h3>
+                    <p class="text-gray-400 mb-6">We help businesses grow through innovative digital marketing strategies and creative solutions.</p>
                     <div class="flex space-x-4">
                         <a href="#" class="text-gray-400 hover:text-white transition-colors">
                             <i class="fab fa-facebook-f"></i>
@@ -574,83 +681,79 @@
                             <i class="fab fa-twitter"></i>
                         </a>
                         <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-linkedin-in"></i>
+                            <i class="fab fa-instagram"></i>
                         </a>
                         <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
                 </div>
                 
-                <!-- Quick Links -->
+                <!-- Services Links -->
                 <div>
-                    <h4 class="text-lg font-semibold mb-6">Quick Links</h4>
+                    <h3 class="text-xl font-bold mb-6">Our Services</h3>
                     <ul class="space-y-3">
-                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
-                        <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors">Services</a></li>
-                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="portfolio.html" class="text-gray-400 hover:text-white transition-colors">Portfolio</a></li>
-                        <li><a href="testimonials.html" class="text-gray-400 hover:text-white transition-colors">Testimonials</a></li>
-                        <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="seo-services.html" class="text-gray-400 hover:text-white transition-colors">Search Engine Optimization</a></li>
+                        <li><a href="web-development.html" class="text-gray-400 hover:text-white transition-colors">Web Development</a></li>
+                        <li><a href="digital-marketing.html" class="text-gray-400 hover:text-white transition-colors">Digital Marketing</a></li>
+                        <li><a href="content-writing.html" class="text-gray-400 hover:text-white transition-colors">Content Writing</a></li>
+                        <li><a href="logo-design.html" class="text-gray-400 hover:text-white transition-colors">Logo Design</a></li>
+                        <li><a href="ui-ux-design.html" class="text-gray-400 hover:text-white transition-colors">UI/UX Design</a></li>
                     </ul>
                 </div>
                 
-                <!-- Services -->
+                <!-- Quick Links -->
                 <div>
-                    <h4 class="text-lg font-semibold mb-6">Our Services</h4>
+                    <h3 class="text-xl font-bold mb-6">Quick Links</h3>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Web Development</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Mobile App Development</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cloud Solutions</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cybersecurity</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Data Analytics</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI & Machine Learning</a></li>
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-white transition-colors">Portfolio</a></li>
+                        <li><a href="testimonials.html" class="text-gray-400 hover:text-white transition-colors">Testimonials</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
                     </ul>
                 </div>
                 
                 <!-- Contact Info -->
                 <div>
-                    <h4 class="text-lg font-semibold mb-6">Contact Us</h4>
-                    <ul class="space-y-3 text-gray-400">
+                    <h3 class="text-xl font-bold mb-6">Contact Us</h3>
+                    <ul class="space-y-3">
                         <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-indigo-400"></i>
-                            <span>123 Tech Street, Silicon Valley, CA 94043</span>
+                            <i class="fas fa-map-marker-alt text-indigo-500 mt-1 mr-3"></i>
+                            <span class="text-gray-400">123 Marketing Street, Suite 100<br>New York, NY 10001</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-phone-alt mr-3 text-indigo-400"></i>
-                            <span>+1 (123) 456-7890</span>
+                            <i class="fas fa-phone-alt text-indigo-500 mr-3"></i>
+                            <a href="tel:+12125551234" class="text-gray-400 hover:text-white transition-colors">(212) 555-1234</a>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-envelope mr-3 text-indigo-400"></i>
-                            <span>info@techsolutions.com</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-clock mr-3 text-indigo-400"></i>
-                            <span>Mon-Fri: 9:00 AM - 6:00 PM</span>
+                            <i class="fas fa-envelope text-indigo-500 mr-3"></i>
+                            <a href="mailto:info@vortexmarketing.com" class="text-gray-400 hover:text-white transition-colors">info@vortexmarketing.com</a>
                         </li>
                     </ul>
                 </div>
             </div>
             
-            <div class="border-t border-gray-800 pt-8">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <p class="text-gray-400 text-sm mb-4 md:mb-0">&copy; 2023 TechSolutions. All rights reserved.</p>
-                    <div class="flex space-x-6">
-                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
-                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
-                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Cookie Policy</a>
-                    </div>
+            <hr class="border-gray-800 my-8">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">&copy; 2023 Vortex Marketing. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Sitemap</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- Back to Top Button -->
-    <button id="backToTop" class="fixed bottom-6 right-6 bg-indigo-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300">
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-indigo-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 z-50">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- JavaScript Libraries -->
+    <!-- AOS Animation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     
     <!-- Custom JavaScript -->
@@ -690,28 +793,81 @@
             });
         });
 
-        // Service Card Hover Animation
-        const serviceCards = document.querySelectorAll('.service-card');
+        // Testimonial Slider
+        const testimonialTrack = document.querySelector('.testimonial-track');
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+        const prevButton = document.querySelector('.testimonial-prev');
+        const nextButton = document.querySelector('.testimonial-next');
+        const dots = document.querySelectorAll('.testimonial-dot');
         
-        serviceCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-10px)';
-                const icon = card.querySelector('.service-icon');
-                icon.style.backgroundColor = '#4f46e5';
-                icon.style.color = 'white';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-                const icon = card.querySelector('.service-icon');
-                icon.style.backgroundColor = '#eef2ff';
-                icon.style.color = '#4f46e5';
+        let currentIndex = 0;
+        const slideWidth = 100; // 100%
+        
+        // Set initial position
+        updateSlider();
+        
+        // Previous button click
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : testimonialSlides.length - 1;
+            updateSlider();
+        });
+        
+        // Next button click
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex < testimonialSlides.length - 1) ? currentIndex + 1 : 0;
+            updateSlider();
+        });
+        
+        // Dot clicks
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateSlider();
             });
         });
+        
+        // Auto slide every 5 seconds
+        setInterval(() => {
+            currentIndex = (currentIndex < testimonialSlides.length - 1) ? currentIndex + 1 : 0;
+            updateSlider();
+        }, 5000);
+        
+        // Update slider position and active dot
+        function updateSlider() {
+            testimonialTrack.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+            
+            // Update active dot
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('bg-indigo-600');
+                    dot.classList.remove('bg-gray-300');
+                } else {
+                    dot.classList.add('bg-gray-300');
+                    dot.classList.remove('bg-indigo-600');
+                }
+            });
+        }
 
-        // Page load animation
-        window.addEventListener('load', () => {
-            document.body.classList.add('loaded');
+        // FAQ Toggles
+        const faqToggles = document.querySelectorAll('.faq-toggle');
+        
+        faqToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                const icon = toggle.querySelector('i');
+                
+                // Toggle content visibility
+                content.classList.toggle('hidden');
+                
+                // Toggle icon
+                if (content.classList.contains('hidden')) {
+                    icon.classList.remove('fa-minus', 'rotate-45');
+                    icon.classList.add('fa-plus');
+                } else {
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus', 'rotate-45');
+                }
+            });
         });
     </script>
 </body>

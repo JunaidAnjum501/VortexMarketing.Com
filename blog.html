@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Vortex Marketing</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+</head>
+<body class="font-[Poppins] bg-gray-50">
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-bold text-indigo-800">
+                        Vortex<span class="text-indigo-500">Marketing</span>
+                    </a>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html#home" class="text-gray-700 hover:text-indigo-600 font-medium">Home</a>
+                    <a href="index.html#services" class="text-gray-700 hover:text-indigo-600 font-medium">Services</a>
+                    <a href="portfolio.html" class="text-gray-700 hover:text-indigo-600 font-medium">Portfolio</a>
+                    <a href="blog.html" class="text-indigo-600 font-medium">Blog</a>
+                    <a href="index.html#contact" class="text-gray-700 hover:text-indigo-600 font-medium">Contact</a>
+                </nav>
+                
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" class="text-gray-700 hover:text-indigo-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="md:hidden hidden pb-4">
+                <a href="index.html#home" class="block py-2 text-gray-700 hover:text-indigo-600 font-medium">Home</a>
+                <a href="index.html#services" class="block py-2 text-gray-700 hover:text-indigo-600 font-medium">Services</a>
+                <a href="portfolio.html" class="block py-2 text-gray-700 hover:text-indigo-600 font-medium">Portfolio</a>
+                <a href="blog.html" class="block py-2 text-indigo-600 font-medium">Blog</a>
+                <a href="index.html#contact" class="block py-2 text-gray-700 hover:text-indigo-600 font-medium">Contact</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Blog Header -->
+    <section class="bg-indigo-700 text-white py-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Our Blog</h1>
+                <p class="text-lg text-indigo-100">Stay updated with the latest marketing trends, tips, and insights</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Blog Content -->
+    <section class="py-12 md:py-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row">
+                <!-- Main Content -->
+                <div class="lg:w-2/3 lg:pr-8">
+                    <!-- Search and Filter -->
+                    <div class="mb-8 flex flex-col sm:flex-row gap-4">
+                        <div class="relative flex-grow">
+                            <input type="text" id="searchBlog" placeholder="Search articles..." class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                        </div>
+                        <select id="categoryFilter" class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="all">All Categories</option>
+                            <option value="Digital Marketing">Digital Marketing</option>
+                            <option value="SEO">SEO</option>
+                            <option value="Social Media">Social Media</option>
+                            <option value="Content Strategy">Content Strategy</option>
+                            <option value="Email Marketing">Email Marketing</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Blog Posts Grid -->
+                    <div id="blogPostsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Loading indicator -->
+                        <div class="col-span-full text-center py-12">
+                            <div class="inline-flex items-center px-4 py-2 font-semibold text-indigo-600">
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Loading blog posts...
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- No Results Message -->
+                    <div id="noResultsMessage" class="hidden text-center py-12">
+                        <p class="text-gray-500">No blog posts found matching your search criteria.</p>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div id="pagination" class="mt-12 flex justify-center">
+                        <nav class="inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                            <button id="prevPage" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Previous</span>
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <div id="pageNumbers" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                                Page <span id="currentPage">1</span> of <span id="totalPages">1</span>
+                            </div>
+                            <button id="nextPage" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                <span class="sr-only">Next</span>
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="lg:w-1/3 lg:pl-8 mt-12 lg:mt-0">
+                    <!-- Categories -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+                        <h3 class="text-lg font-semibold mb-4">Categories</h3>
+                        <ul id="categoriesList" class="space-y-2">
+                            <li class="flex items-center justify-between">
+                                <span class="text-gray-600">Loading categories...</span>
+                                <div class="w-4 h-4 rounded-full bg-gray-200 animate-pulse"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Recent Posts -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+                        <h3 class="text-lg font-semibold mb-4">Recent Posts</h3>
+                        <ul id="recentPostsList" class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="w-full">
+                                    <div class="h-4 bg-gray-200 rounded w-3/4 mb-2 animate-pulse"></div>
+                                    <div class="h-3 bg-gray-100 rounded w-1/2 animate-pulse"></div>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-full">
+                                    <div class="h-4 bg-gray-200 rounded w-3/4 mb-2 animate-pulse"></div>
+                                    <div class="h-3 bg-gray-100 rounded w-1/2 animate-pulse"></div>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="w-full">
+                                    <div class="h-4 bg-gray-200 rounded w-3/4 mb-2 animate-pulse"></div>
+                                    <div class="h-3 bg-gray-100 rounded w-1/2 animate-pulse"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Newsletter -->
+                    <div class="bg-indigo-50 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4">Subscribe to Our Newsletter</h3>
+                        <p class="text-gray-600 mb-4">Get the latest marketing tips and insights delivered to your inbox.</p>
+                        <form id="newsletterForm">
+                            <div class="mb-3">
+                                <input type="email" id="emailSubscribe" placeholder="Your email address" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                            </div>
+                            <button type="submit" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Blog Post Template (Hidden) -->
+    <template id="blogPostTemplate">
+        <div class="blog-post bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md">
+            <a href="#" class="post-link">
+                <img src="" alt="" class="post-image w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex items-center mb-2">
+                        <span class="post-category text-xs font-semibold px-2 py-1 rounded-full bg-indigo-100 text-indigo-800"></span>
+                        <span class="post-date text-xs text-gray-500 ml-auto"></span>
+                    </div>
+                    <h3 class="post-title text-xl font-semibold mb-2 text-gray-900"></h3>
+                    <p class="post-summary text-gray-600 mb-4"></p>
+                    <div class="flex items-center text-indigo-600 font-medium">
+                        Read More <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </template>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Vortex<span class="text-indigo-400">Marketing</span></h3>
+                    <p class="text-gray-400 mb-4">Elevating brands through innovative digital marketing strategies and creative solutions.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#home" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="index.html#services" class="text-gray-400 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-white transition-colors">Portfolio</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Digital Strategy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">SEO Optimization</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Content Marketing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Social Media</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Email Marketing</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-indigo-400"></i>
+                            <span class="text-gray-400">123 Marketing Street<br>New York, NY 10001</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-indigo-400"></i>
+                            <a href="mailto:info@vortexmarketing.com" class="text-gray-400 hover:text-white transition-colors">info@vortexmarketing.com</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-indigo-400"></i>
+                            <a href="tel:+1234567890" class="text-gray-400 hover:text-white transition-colors">(123) 456-7890</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Vortex Marketing. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD5rUpAHDBwos7UCE9go2W2AgY-vAeaLd4",
+            authDomain: "vertax-marketing.firebaseapp.com",
+            projectId: "vertax-marketing",
+            storageBucket: "vertax-marketing.appspot.com",
+            messagingSenderId: "307006172894",
+            appId: "1:307006172894:web:6b724d5b8adffc5e13dc4f",
+            measurementId: "G-FTMVVRFX9P"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const blogCollection = db.collection('blogPosts');
+        
+        // DOM Elements
+        const blogPostsGrid = document.getElementById('blogPostsGrid');
+        const blogPostTemplate = document.getElementById('blogPostTemplate');
+        const categoriesList = document.getElementById('categoriesList');
+        const recentPostsList = document.getElementById('recentPostsList');
+        const searchInput = document.getElementById('searchBlog');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        const prevPageBtn = document.getElementById('prevPage');
+        const nextPageBtn = document.getElementById('nextPage');
+        const currentPageEl = document.getElementById('currentPage');
+        const totalPagesEl = document.getElementById('totalPages');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        // Pagination variables
+        let currentPage = 1;
+        let postsPerPage = 6;
+        let totalPosts = 0;
+        let totalPages = 1;
+        let allPosts = [];
+        let filteredPosts = [];
+        
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Load blog posts from Firestore
+        function loadBlogPosts() {
+            blogCollection.orderBy('createdAt', 'desc').get()
+                .then((querySnapshot) => {
+                    // Clear loading indicator
+                    blogPostsGrid.innerHTML = '';
+                    
+                    if (querySnapshot.empty) {
+                        noResultsMessage.classList.remove('hidden');
+                        return;
+                    }
+                    
+                    // Store all posts
+                    allPosts = [];
+                    querySnapshot.forEach(doc => {
+                        const post = doc.data();
+                        post.id = doc.id;
+                        allPosts.push(post);
+                    });
+                    
+                    // Set initial filtered posts to all posts
+                    filteredPosts = [...allPosts];
+                    totalPosts = filteredPosts.length;
+                    totalPages = Math.ceil(totalPosts / postsPerPage);
+                    
+                    // Update pagination
+                    updatePagination();
+                    
+                    // Display posts for current page
+                    displayPosts();
+                    
+                    // Load categories
+                    loadCategories();
+                    
+                    // Load recent posts
+                    loadRecentPosts();
+                })
+                .catch((error) => {
+                    console.error("Error loading blog posts:", error);
+                    blogPostsGrid.innerHTML = `
+                        <div class="col-span-full text-center py-12">
+                            <p class="text-red-500">Error loading blog posts. Please try again later.</p>
+                        </div>
+                    `;
+                });
+        }
+        
+        // Display posts for current page
+        function displayPosts() {
+            // Clear grid
+            blogPostsGrid.innerHTML = '';
+            
+            // Get posts for current page
+            const startIndex = (currentPage - 1) * postsPerPage;
+            const endIndex = startIndex + postsPerPage;
+            const postsToDisplay = filteredPosts.slice(startIndex, endIndex);
+            
+            if (postsToDisplay.length === 0) {
+                noResultsMessage.classList.remove('hidden');
+                return;
+            }
+            
+            noResultsMessage.classList.add('hidden');
+            
+            // Display posts
+            postsToDisplay.forEach(post => {
+                const postElement = blogPostTemplate.content.cloneNode(true);
+                
+                // Set post data
+                const postLink = postElement.querySelector('.post-link');
+                postLink.href = `blog-post.html?id=${post.id}`;
+                
+                const postImage = postElement.querySelector('.post-image');
+                if (post.image) {
+                    postImage.src = post.image;
+                    postImage.alt = post.title;
+                } else {
+                    postImage.src = 'https://via.placeholder.com/800x400?text=Vortex+Marketing';
+                    postImage.alt = 'Default blog image';
+                }
+                
+                const postCategory = postElement.querySelector('.post-category');
+                postCategory.textContent = post.category || 'Uncategorized';
+                
+                const postDate = postElement.querySelector('.post-date');
+                if (post.createdAt) {
+                    const date = post.createdAt.toDate();
+                    postDate.textContent = date.toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric' 
+                    });
+                } else {
+                    postDate.textContent = 'No date';
+                }
+                
+                const postTitle = postElement.querySelector('.post-title');
+                postTitle.textContent = post.title;
+                
+                const postSummary = postElement.querySelector('.post-summary');
+                postSummary.textContent = post.summary || '';
+                
+                blogPostsGrid.appendChild(postElement);
+            });
+        }
+        
+        // Load categories
+        function loadCategories() {
+            // Get unique categories
+            const categories = {};
+            allPosts.forEach(post => {
+                const category = post.category || 'Uncategorized';
+                if (categories[category]) {
+                    categories[category]++;
+                } else {
+                    categories[category] = 1;
+                }
+            });
+            
+            // Clear categories list
+            categoriesList.innerHTML = '';
+            
+            // Add all categories option
+            const allCategoryItem = document.createElement('li');
+            allCategoryItem.innerHTML = `
+                <a href="#" class="category-link flex items-center justify-between hover:text-indigo-600" data-category="all">
+                    <span>All Categories</span>
+                    <span class="px-2 py-1 text-xs rounded-full bg-gray-100">${allPosts.length}</span>
+                </a>
+            `;
+            categoriesList.appendChild(allCategoryItem);
+            
+            // Add each category
+            Object.keys(categories).forEach(category => {
+                const categoryItem = document.createElement('li');
+                categoryItem.innerHTML = `
+                    <a href="#" class="category-link flex items-center justify-between hover:text-indigo-600" data-category="${category}">
+                        <span>${category}</span>
+                        <span class="px-2 py-1 text-xs rounded-full bg-gray-100">${categories[category]}</span>
+                    </a>
+                `;
+                categoriesList.appendChild(categoryItem);
+            });
+            
+            // Add event listeners to category links
+            document.querySelectorAll('.category-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const category = this.getAttribute('data-category');
+                    
+                    // Update category filter dropdown
+                    if (category === 'all') {
+                        categoryFilter.value = 'all';
+                    } else {
+                        categoryFilter.value = category;
+                    }
+                    
+                    // Filter posts
+                    filterPosts();
+                });
+            });
+        }
+        
+        // Load recent posts
+        function loadRecentPosts() {
+            // Clear recent posts list
+            recentPostsList.innerHTML = '';
+            
+            // Get 5 most recent posts
+            const recentPosts = allPosts.slice(0, 5);
+            
+            // Add each recent post
+            recentPosts.forEach(post => {
+                const postItem = document.createElement('li');
+                postItem.innerHTML = `
+                    <a href="blog-post.html?id=${post.id}" class="flex items-start hover:text-indigo-600">
+                        <div class="w-12 h-12 rounded overflow-hidden flex-shrink-0 mr-3">
+                            <img src="${post.image || 'https://via.placeholder.com/100?text=VM'}" alt="${post.title}" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h5 class="font-medium text-gray-900 hover:text-indigo-600 line-clamp-2">${post.title}</h5>
+                            <p class="text-xs text-gray-500 mt-1">
+                                ${post.createdAt ? post.createdAt.toDate().toLocaleDateString('en-US', { 
+                                    year: 'numeric', 
+                                    month: 'short', 
+                                    day: 'numeric' 
+                                }) : 'No date'}
+                            </p>
+                        </div>
+                    </a>
+                `;
+                recentPostsList.appendChild(postItem);
+            });
+        }
+        
+        // Filter posts based on search and category
+        function filterPosts() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const categoryValue = categoryFilter.value;
+            
+            // Filter posts
+            filteredPosts = allPosts.filter(post => {
+                // Match search term
+                const titleMatch = post.title.toLowerCase().includes(searchTerm);
+                const summaryMatch = post.summary ? post.summary.toLowerCase().includes(searchTerm) : false;
+                const contentMatch = post.content ? post.content.toLowerCase().includes(searchTerm) : false;
+                
+                // Match category
+                const categoryMatch = categoryValue === 'all' || post.category === categoryValue;
+                
+                return (titleMatch || summaryMatch || contentMatch) && categoryMatch;
+            });
+            
+            // Update pagination
+            totalPosts = filteredPosts.length;
+            totalPages = Math.ceil(totalPosts / postsPerPage);
+            currentPage = 1;
+            updatePagination();
+            
+            // Display posts
+            displayPosts();
+        }
+        
+        // Update pagination
+        function updatePagination() {
+            currentPageEl.textContent = currentPage;
+            totalPagesEl.textContent = totalPages;
+            
+            // Disable/enable previous button
+            if (currentPage === 1) {
+                prevPageBtn.disabled = true;
+                prevPageBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                prevPageBtn.disabled = false;
+                prevPageBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+            
+            // Disable/enable next button
+            if (currentPage === totalPages || totalPages === 0) {
+                nextPageBtn.disabled = true;
+                nextPageBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                nextPageBtn.disabled = false;
+                nextPageBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+            
+            // Hide pagination if no posts
+            if (totalPosts === 0) {
+                document.getElementById('pagination').classList.add('hidden');
+            } else {
+                document.getElementById('pagination').classList.remove('hidden');
+            }
+        }
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load blog posts on page load
+            loadBlogPosts();
+            
+            // Search input
+            searchInput.addEventListener('input', function() {
+                filterPosts();
+            });
+            
+            // Category filter
+            categoryFilter.addEventListener('change', function() {
+                filterPosts();
+            });
+            
+            // Previous page button
+            prevPageBtn.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updatePagination();
+                    displayPosts();
+                    window.scrollTo(0, 0);
+                }
+            });
+            
+            // Next page button
+            nextPageBtn.addEventListener('click', function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    updatePagination();
+                    displayPosts();
+                    window.scrollTo(0, 0);
+                }
+            });
+            
+            // Newsletter form
+            document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('emailSubscribe').value;
+                
+                if (email) {
+                    alert(`Thank you for subscribing with ${email}! You'll receive our newsletter soon.`);
+                    this.reset();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
