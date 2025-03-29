@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Design Services - Vortex Marketing</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- Custom styles -->
+    <style type="text/tailwindcss">
+        @layer components {
+            .btn {
+                @apply px-6 py-3 rounded-lg font-medium transition-all duration-300;
+            }
+            .btn-primary {
+                @apply bg-indigo-600 text-white hover:bg-indigo-700;
+            }
+            .btn-secondary {
+                @apply bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white;
+            }
+            .page-transition {
+                animation: fadeIn 0.8s ease-in-out;
+            }
+            @keyframes fadeIn {
+                0% { opacity: 0; transform: translateY(20px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+            .feature-card {
+                transition: all 0.3s ease;
+            }
+            .feature-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .hero-wave {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                overflow: hidden;
+                line-height: 0;
+            }
+            .floating-element {
+                animation: float 6s ease-in-out infinite;
+            }
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-20px); }
+                100% { transform: translateY(0px); }
+            }
+            .svg-element {
+                animation: pulse 4s ease-in-out infinite;
+            }
+            @keyframes pulse {
+                0% { transform: scale(1); opacity: 0.8; }
+                50% { transform: scale(1.05); opacity: 1; }
+                100% { transform: scale(1); opacity: 0.8; }
+            }
+            .svg-rotate {
+                animation: rotate 20s linear infinite;
+            }
+            @keyframes rotate {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            .svg-float-delay-1 {
+                animation: float 6s ease-in-out 1s infinite;
+            }
+            .svg-float-delay-2 {
+                animation: float 7s ease-in-out 0.5s infinite;
+            }
+            .svg-float-delay-3 {
+                animation: float 8s ease-in-out 1.5s infinite;
+            }
+            /* Add these dropdown styles to ensure proper hover functionality */
+            .group:hover .group-hover\:opacity-100 {
+                opacity: 1;
+            }
+            
+            .group:hover .group-hover\:visible {
+                visibility: visible;
+            }
+            
+            .opacity-0 {
+                opacity: 0;
+            }
+            
+            .invisible {
+                visibility: hidden;
+            }
+            
+            /* Hamburger menu styles */
+            .hamburger-line {
+                @apply block w-6 h-0.5 bg-gray-800 my-1.5 transition-all duration-300;
+            }
+            
+            .hamburger.active .hamburger-line:nth-child(1) {
+                @apply transform rotate-45 translate-y-2;
+            }
+            
+            .hamburger.active .hamburger-line:nth-child(2) {
+                @apply opacity-0;
+            }
+            
+            .hamburger.active .hamburger-line:nth-child(3) {
+                @apply transform -rotate-45 -translate-y-2;
+            }
+        }
+    </style>
+</head>
+<body class="font-[Poppins] bg-gray-50">
+    <!-- Header Section -->
+    <header class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="logo">
+                    <h1 class="text-2xl font-bold">Vortex<span class="text-indigo-600">Marketing</span></h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Home</a>
+                    <a href="about.html" class="text-gray-600 hover:text-indigo-600 transition-colors">About</a>
+                    
+                    <!-- Services Dropdown -->
+                    <div class="relative group">
+                        <a href="services.html" class="text-indigo-600 font-medium flex items-center">
+                            Services <i class="fas fa-chevron-down text-xs mt-1 ml-1"></i>
+                        </a>
+                        <div class="absolute left-0 mt-2 w-64 rounded-lg shadow-xl bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2">
+                                <a href="web-development.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-laptop-code mr-3 text-indigo-500"></i>
+                                    <span>Web Development</span>
+                                </a>
+                                <a href="digital-marketing.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-bullhorn mr-3 text-indigo-500"></i>
+                                    <span>Digital Marketing</span>
+                                </a>
+                                <a href="seo-services.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-search mr-3 text-indigo-500"></i>
+                                    <span>SEO Services</span>
+                                </a>
+                                <a href="content-writing.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-pen-fancy mr-3 text-indigo-500"></i>
+                                    <span>Content Writing</span>
+                                </a>
+                                <a href="logo-design.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-paint-brush mr-3 text-indigo-500"></i>
+                                    <span>Logo Design</span>
+                                </a>
+                                <a href="ui-ux-design.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-desktop mr-3 text-indigo-500"></i>
+                                    <span>UI/UX Design</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="portfolio.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
+                    
+                    <!-- Blog Link (without dropdown) -->
+                    <a href="blog.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Blog</a>
+                    
+                    <a href="contact.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
+                </nav>
+                
+                <div class="hidden md:flex">
+                    <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+                </div>
+                
+                <button class="hamburger md:hidden focus:outline-none">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+            
+            <div class="mobile-menu hidden md:hidden mt-4 py-4 border-t">
+                <a href="index.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Home</a>
+                <a href="about.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">About</a>
+                
+                <!-- Mobile Services Dropdown -->
+                <div class="mobile-dropdown py-2">
+                    <button class="mobile-dropdown-toggle flex items-center justify-between w-full text-left text-indigo-600 font-medium">
+                        Services <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-300"></i>
+                    </button>
+                    <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-2">
+                        <a href="web-development.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Web Development</a>
+                        <a href="digital-marketing.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Digital Marketing</a>
+                        <a href="seo-services.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">SEO Services</a>
+                        <a href="content-writing.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Content Writing</a>
+                        <a href="logo-design.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Logo Design</a>
+                        <a href="ui-ux-design.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">UI/UX Design</a>
+                    </div>
+                </div>
+                
+                <a href="portfolio.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
+                <a href="blog.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Blog</a>
+                <a href="contact.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
+                <a href="contact.html" class="btn btn-primary mt-4 inline-block">Get a Quote</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Enhanced Hero Section with SVG Elements -->
+    <section class="pt-32 pb-20 bg-gradient-to-r from-indigo-600 to-purple-500 text-white relative overflow-hidden">
+        <!-- SVG Background Elements -->
+        <div class="absolute inset-0 z-0 opacity-20">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
+                <path fill="#ffffff" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+        
+        <!-- Animated SVG Elements -->
+        <div class="absolute top-20 left-10 svg-float-delay-1 opacity-30">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="40" r="40" fill="white"/>
+                <path d="M20 40L35 55L60 30" stroke="#4F46E5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-40 left-1/4 svg-float-delay-2 opacity-20">
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="120" height="120" rx="20" fill="white"/>
+                <path d="M30 60H90M60 30V90" stroke="#4F46E5" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+        </div>
+        
+        <div class="absolute top-40 right-20 svg-float-delay-3 opacity-30">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="30,0 60,30 30,60 0,30" fill="white"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-20 right-10 svg-rotate opacity-20">
+            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" stroke="white" stroke-width="2"/>
+                <circle cx="50" cy="50" r="35" stroke="white" stroke-width="2"/>
+                <circle cx="50" cy="50" r="25" stroke="white" stroke-width="2"/>
+                <circle cx="50" cy="50" r="15" stroke="white" stroke-width="2"/>
+            </svg>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
+                    <span class="text-purple-200 font-semibold text-sm uppercase tracking-wider">Our Services</span>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 mt-2">Logo Design</h1>
+                    <p class="text-xl mb-6">Create a memorable brand identity with our custom logo design services that capture your brand's essence and vision.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="contact.html" class="btn btn-secondary bg-transparent border-2 border-white text-white hover:bg-white hover:text-indigo-600">Get Started</a>
+                        <a href="portfolio.html" class="btn bg-white text-indigo-600 hover:bg-gray-100">View Portfolio</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center relative" data-aos="fade-left">
+                    <!-- Logo Design Illustration -->
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1572044162444-ad60f128bdea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                             alt="Logo Design Services" 
+                             class="rounded-lg shadow-2xl max-w-full h-96 relative z-10">
+                        
+                        <!-- Decorative SVG Elements around the image -->
+                        <div class="absolute -top-5 -left-5 svg-element">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 0L23.5 16.5L40 20L23.5 23.5L20 40L16.5 23.5L0 20L16.5 16.5L20 0Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <div class="absolute -bottom-5 -right-5 svg-element" style="animation-delay: 1s;">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="20" fill="white"/>
+                            </svg>
+                        </div>
+                        <div class="absolute top-1/2 -right-8 svg-element" style="animation-delay: 0.5s;">
+                            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="30" height="30" fill="white"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SVG Wave -->
+        <div class="hero-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" class="w-full h-20">
+                <path fill="#ffffff" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,138.7C672,139,768,181,864,181.3C960,181,1056,139,1152,133.3C1248,128,1344,160,1392,176L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">What We Offer</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">Professional Logo Design Services</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We create distinctive, versatile logos that communicate your brand's values and resonate with your target audience.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-white rounded-lg p-8 border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-pencil-ruler text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Custom Logo Design</h3>
+                    <p class="text-gray-600">Unique, tailored logo designs that reflect your brand identity and stand out from the competition.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card bg-white rounded-lg p-8 border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-palette text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Brand Identity</h3>
+                    <p class="text-gray-600">Comprehensive brand identity packages including color schemes, typography, and usage guidelines.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card bg-white rounded-lg p-8 border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-vector-square text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Vector Graphics</h3>
+                    <p class="text-gray-600">Scalable vector logos that maintain quality at any size, perfect for all applications from business cards to billboards.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card bg-white rounded-lg p-8 border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-sync-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Logo Redesign</h3>
+                    <p class="text-gray-600">Refresh and modernize your existing logo while maintaining brand recognition and equity.</p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-card bg-white rounded-lg p-8 border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-mobile-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Responsive Logos</h3>
+                    <p class="text-gray-600">Adaptable logo designs that work seamlessly across digital platforms and various screen sizes.</p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="feature-card bg-white rounded-lg p-8 border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-file-download text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">File Formats</h3>
+                    <p class="text-gray-600">Receive your logo in multiple file formats (AI, EPS, PDF, PNG, JPG) for all your print and digital needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">Our Process</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">How We Create Your Perfect Logo</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Our proven design methodology ensures a collaborative process that results in a logo you'll love.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                <!-- Step 1 -->
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">1</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Discovery</h3>
+                    <p class="text-gray-600">We learn about your brand, values, target audience, and competitors to understand your needs.</p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">2</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Research</h3>
+                    <p class="text-gray-600">We analyze industry trends and visual styles to inform our design approach.</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">3</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Concept</h3>
+                    <p class="text-gray-600">We sketch and develop multiple logo concepts based on our research and your requirements.</p>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">4</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Refinement</h3>
+                    <p class="text-gray-600">We refine the selected concept based on your feedback until it perfectly captures your vision.</p>
+                </div>
+                
+                <!-- Step 5 -->
+                <div class="text-center" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">5</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Delivery</h3>
+                    <p class="text-gray-600">We deliver your final logo in multiple formats with brand guidelines for consistent usage.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo Types Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">Logo Types</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">Different Styles for Different Brands</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We create various logo styles to match your brand personality and business objectives.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-center">
+                <!-- Type 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-font text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Wordmark</h3>
+                </div>
+                
+                <!-- Type 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-shapes text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Abstract</h3>
+                </div>
+                
+                <!-- Type 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-image text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Pictorial</h3>
+                </div>
+                
+                <!-- Type 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-signature text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Letterform</h3>
+                </div>
+                
+                <!-- Type 5 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="500">
+                    <i class="fas fa-shield-alt text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Emblem</h3>
+                </div>
+                
+                <!-- Type 6 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="600">
+                    <i class="fas fa-object-group text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Combination</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Tools Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">Our Tools</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">Design Tools We Use</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We leverage industry-leading design software to create high-quality, professional logos.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-center">
+                <!-- Tool 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fab fa-adobe text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Adobe Illustrator</h3>
+                </div>
+                
+                <!-- Tool 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fab fa-adobe text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Adobe Photoshop</h3>
+                </div>
+                
+                <!-- Tool 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-pen-nib text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Procreate</h3>
+                </div>
+                
+                <!-- Tool 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-pencil-alt text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Sketch</h3>
+                </div>
+                
+                <!-- Tool 5 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="500">
+                    <i class="fas fa-bezier-curve text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Figma</h3>
+                </div>
+                
+                <!-- Tool 6 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="600">
+                    <i class="fas fa-palette text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Affinity Designer</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- FAQ Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">FAQ</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">Frequently Asked Questions</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Get answers to common questions about our logo design services.</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <button class="flex justify-between items-center w-full p-6 text-left focus:outline-none">
+                        <span class="text-lg font-semibold text-gray-800">How long does the logo design process take?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6">
+                        <p class="text-gray-600">Our standard logo design process typically takes 2-3 weeks from start to finish. This includes the discovery phase, concept development, revisions, and final delivery. For more complex projects or brand identity packages, the timeline may extend to 4-6 weeks. We'll provide you with a specific timeline during our initial consultation based on your project requirements.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <button class="flex justify-between items-center w-full p-6 text-left focus:outline-none">
+                        <span class="text-lg font-semibold text-gray-800">How many logo concepts will I receive?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6">
+                        <p class="text-gray-600">Our standard logo design package includes 3-5 initial concepts for you to review. After you select your preferred concept, we'll refine it based on your feedback with up to three rounds of revisions to ensure the final design perfectly matches your vision. If you need more concepts or revisions, we offer additional options at a reasonable cost.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <button class="flex justify-between items-center w-full p-6 text-left focus:outline-none">
+                        <span class="text-lg font-semibold text-gray-800">What file formats will I receive for my logo?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6">
+                        <p class="text-gray-600">We provide your final logo in all industry-standard formats for both print and digital use. This includes vector files (AI, EPS, SVG) for scalability, PDF for high-quality printing, and raster files (PNG, JPG) in various sizes for digital applications. We also provide versions with transparent backgrounds and in different color variations (full color, black, white, etc.) to ensure you have everything you need for all applications.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                    <button class="flex justify-between items-center w-full p-6 text-left focus:outline-none">
+                        <span class="text-lg font-semibold text-gray-800">Do you offer brand identity packages beyond just a logo?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6">
+                        <p class="text-gray-600">Yes, we offer comprehensive brand identity packages that include logo design plus additional brand elements such as color palettes, typography selection, brand guidelines, business card design, letterhead, social media assets, and more. These packages are customized based on your specific needs and can be tailored to fit businesses of all sizes, from startups to established companies looking for a rebrand.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="bg-white rounded-lg overflow-hidden" data-aos="fade-up" data-aos-delay="500">
+                    <button class="flex justify-between items-center w-full p-6 text-left focus:outline-none">
+                        <span class="text-lg font-semibold text-gray-800">Who will own the rights to my logo design?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6">
+                        <p class="text-gray-600">Upon full payment, you will own all rights to your final logo design. We transfer complete ownership and intellectual property rights to you, allowing you to use, modify, and reproduce your logo however you wish. We may request permission to display your logo in our portfolio, but we will always seek your approval first and respect your decision.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-indigo-600 to-purple-500 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4" data-aos="fade-up">Ready to Create Your Perfect Logo?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Let's work together to design a logo that captures your brand's essence and helps you stand out from the competition.</p>
+            <div class="flex flex-wrap justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
+                <a href="contact.html" class="btn bg-white text-indigo-600 hover:bg-gray-100">Get Started</a>
+                <a href="portfolio.html" class="btn bg-transparent border-2 border-white text-white hover:bg-white hover:text-indigo-600">View Our Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Vortex Marketing</h3>
+                    <p class="text-gray-400 mb-4">Innovative digital solutions for businesses of all sizes. We help brands grow and succeed in the digital landscape.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="web-development.html" class="text-gray-400 hover:text-white transition-colors">Web Development</a></li>
+                        <li><a href="digital-marketing.html" class="text-gray-400 hover:text-white transition-colors">Digital Marketing</a></li>
+                        <li><a href="seo-services.html" class="text-gray-400 hover:text-white transition-colors">SEO Services</a></li>
+                        <li><a href="content-writing.html" class="text-gray-400 hover:text-white transition-colors">Content Writing</a></li>
+                        <li><a href="logo-design.html" class="text-gray-400 hover:text-white transition-colors">Logo Design</a></li>
+                        <li><a href="ui-ux-design.html" class="text-gray-400 hover:text-white transition-colors">UI/UX Design</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-white transition-colors">Portfolio</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="privacy-policy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>123 Business Avenue, New York, NY 10001</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>info@vortexmarketing.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock mr-3"></i>
+                            <span>Mon-Fri: 9:00 AM - 5:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-gray-800 my-8">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">&copy; 2023 Vortex Marketing. All rights reserved.</p>
+                <div class="mt-4 md:mt-0">
+                    <a href="privacy-policy.html" class="text-gray-400 hover:text-white transition-colors mr-4">Privacy Policy</a>
+                    <a href="terms-of-service.html" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize AOS Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            
+            // Mobile Menu Toggle
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Mobile Dropdown Toggle
+            const mobileDropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+            
+            mobileDropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const dropdownContent = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    dropdownContent.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+            
+            // FAQ Accordion
+            const faqButtons = document.querySelectorAll('.bg-white button');
+            
+            faqButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    content.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                    
+                    // Close other FAQ items
+                    faqButtons.forEach(otherButton => {
+                        if (otherButton !== button) {
+                            const otherContent = otherButton.nextElementSibling;
+                            const otherIcon = otherButton.querySelector('i');
+                            
+                            if (!otherContent.classList.contains('hidden')) {
+                                otherContent.classList.add('hidden');
+                                otherIcon.classList.remove('rotate-180');
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Services - Vortex Marketing</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- Custom styles -->
+    <style type="text/tailwindcss">
+        @layer components {
+            .btn {
+                @apply px-6 py-3 rounded-lg font-medium transition-all duration-300;
+            }
+            .btn-primary {
+                @apply bg-indigo-600 text-white hover:bg-indigo-700;
+            }
+            .btn-secondary {
+                @apply bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white;
+            }
+            .page-transition {
+                animation: fadeIn 0.8s ease-in-out;
+            }
+            @keyframes fadeIn {
+                0% { opacity: 0; transform: translateY(20px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+            .feature-card {
+                transition: all 0.3s ease;
+            }
+            .feature-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .hero-wave {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                overflow: hidden;
+                line-height: 0;
+            }
+            .floating-element {
+                animation: float 6s ease-in-out infinite;
+            }
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-20px); }
+                100% { transform: translateY(0px); }
+            }
+            .svg-element {
+                animation: pulse 4s ease-in-out infinite;
+            }
+            @keyframes pulse {
+                0% { transform: scale(1); opacity: 0.8; }
+                50% { transform: scale(1.05); opacity: 1; }
+                100% { transform: scale(1); opacity: 0.8; }
+            }
+            .svg-rotate {
+                animation: rotate 20s linear infinite;
+            }
+            @keyframes rotate {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            .svg-float-delay-1 {
+                animation: float 6s ease-in-out 1s infinite;
+            }
+            .svg-float-delay-2 {
+                animation: float 7s ease-in-out 0.5s infinite;
+            }
+            .svg-float-delay-3 {
+                animation: float 8s ease-in-out 1.5s infinite;
+            }
+            /* Add these dropdown styles to ensure proper hover functionality */
+            .group:hover .group-hover\:opacity-100 {
+                opacity: 1;
+            }
+            
+            .group:hover .group-hover\:visible {
+                visibility: visible;
+            }
+            
+            .opacity-0 {
+                opacity: 0;
+            }
+            
+            .invisible {
+                visibility: hidden;
+            }
+            
+            /* Hamburger menu styles */
+            .hamburger-line {
+                @apply block w-6 h-0.5 bg-gray-800 my-1.5 transition-all duration-300;
+            }
+            
+            .hamburger.active .hamburger-line:nth-child(1) {
+                @apply transform rotate-45 translate-y-2;
+            }
+            
+            .hamburger.active .hamburger-line:nth-child(2) {
+                @apply opacity-0;
+            }
+            
+            .hamburger.active .hamburger-line:nth-child(3) {
+                @apply transform -rotate-45 -translate-y-2;
+            }
+        }
+    </style>
+    <!-- Add JavaScript for functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ functionality
+            const faqButtons = document.querySelectorAll('.faq-item button');
+            
+            faqButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    content.classList.toggle('hidden');
+                    
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        if (content.classList.contains('hidden')) {
+                            icon.style.transform = 'rotate(0deg)';
+                        } else {
+                            icon.style.transform = 'rotate(180deg)';
+                        }
+                    }
+                });
+            });
+            
+            // Hamburger menu functionality
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                    this.classList.toggle('active');
+                });
+            }
+            
+            // Mobile dropdown functionality
+            const mobileDropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+            
+            mobileDropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const dropdownContent = this.nextElementSibling;
+                    dropdownContent.classList.toggle('hidden');
+                    
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        if (dropdownContent.classList.contains('hidden')) {
+                            icon.style.transform = 'rotate(0deg)';
+                        } else {
+                            icon.style.transform = 'rotate(180deg)';
+                        }
+                    }
+                });
+            });
+            
+            // Initialize AOS animation library
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    easing: 'ease-in-out',
+                    once: true
+                });
+            }
+        });
+    </script>
+</head>
+<body class="font-[Poppins] bg-gray-50">
+    <!-- Header Section -->
+    <header class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="logo">
+                    <h1 class="text-2xl font-bold">Vortex<span class="text-indigo-600">Marketing</span></h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Home</a>
+                    <a href="about.html" class="text-gray-600 hover:text-indigo-600 transition-colors">About</a>
+                    
+                    <!-- Services Dropdown -->
+                    <div class="relative group">
+                        <a href="services.html" class="text-indigo-600 font-medium flex items-center">
+                            Services <i class="fas fa-chevron-down text-xs mt-1 ml-1"></i>
+                        </a>
+                        <div class="absolute left-0 mt-2 w-64 rounded-lg shadow-xl bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div class="py-2">
+                                <a href="web-development.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-laptop-code mr-3 text-indigo-500"></i>
+                                    <span>Web Development</span>
+                                </a>
+                                <a href="digital-marketing.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-bullhorn mr-3 text-indigo-500"></i>
+                                    <span>Digital Marketing</span>
+                                </a>
+                                <a href="seo-services.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-search mr-3 text-indigo-500"></i>
+                                    <span>SEO Services</span>
+                                </a>
+                                <a href="content-writing.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-pen-fancy mr-3 text-indigo-500"></i>
+                                    <span>Content Writing</span>
+                                </a>
+                                <a href="logo-design.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-paint-brush mr-3 text-indigo-500"></i>
+                                    <span>Logo Design</span>
+                                </a>
+                                <a href="ui-ux-design.html" class="flex items-center px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-200">
+                                    <i class="fas fa-desktop mr-3 text-indigo-500"></i>
+                                    <span>UI/UX Design</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="portfolio.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
+                    
+                    <!-- Blog Link (without dropdown) -->
+                    <a href="blog.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Blog</a>
+                    
+                    <a href="contact.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
+                </nav>
+                
+                <div class="hidden md:flex">
+                    <a href="contact.html" class="btn btn-primary">Get a Quote</a>
+                </div>
+                
+                <button class="hamburger md:hidden focus:outline-none">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+            
+            <div class="mobile-menu hidden md:hidden mt-4 py-4 border-t">
+                <a href="index.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Home</a>
+                <a href="about.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">About</a>
+                
+                <!-- Mobile Services Dropdown -->
+                <div class="mobile-dropdown py-2">
+                    <button class="mobile-dropdown-toggle flex items-center justify-between w-full text-left text-indigo-600 font-medium">
+                        Services <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-300"></i>
+                    </button>
+                    <div class="mobile-dropdown-content hidden pl-4 mt-2 space-y-2">
+                        <a href="web-development.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Web Development</a>
+                        <a href="digital-marketing.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Digital Marketing</a>
+                        <a href="seo-services.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">SEO Services</a>
+                        <a href="content-writing.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Content Writing</a>
+                        <a href="logo-design.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Logo Design</a>
+                        <a href="ui-ux-design.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">UI/UX Design</a>
+                    </div>
+                </div>
+                
+                <a href="portfolio.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Portfolio</a>
+                <a href="blog.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Blog</a>
+                <a href="contact.html" class="block py-2 text-gray-600 hover:text-indigo-600 transition-colors">Contact</a>
+                <a href="contact.html" class="btn btn-primary mt-4 inline-block">Get a Quote</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Enhanced Hero Section with SVG Elements -->
+    <section class="pt-32 pb-20 bg-gradient-to-r from-indigo-600 to-blue-500 text-white relative overflow-hidden">
+        <!-- SVG Background Elements -->
+        <div class="absolute inset-0 z-0 opacity-20">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice">
+                <path fill="#ffffff" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+        
+        <!-- Animated SVG Elements -->
+        <div class="absolute top-20 left-10 svg-float-delay-1 opacity-30">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="40" r="40" fill="white"/>
+                <path d="M20 40L35 55L60 30" stroke="#4F46E5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-40 left-1/4 svg-float-delay-2 opacity-20">
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="120" height="120" rx="20" fill="white"/>
+                <path d="M30 60H90M60 30V90" stroke="#4F46E5" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+        </div>
+        
+        <div class="absolute top-40 right-20 svg-float-delay-3 opacity-30">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="30,0 60,30 30,60 0,30" fill="white"/>
+            </svg>
+        </div>
+        
+        <div class="absolute bottom-20 right-10 svg-rotate opacity-20">
+            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" stroke="white" stroke-width="2"/>
+                <circle cx="50" cy="50" r="35" stroke="white" stroke-width="2"/>
+                <circle cx="50" cy="50" r="25" stroke="white" stroke-width="2"/>
+                <circle cx="50" cy="50" r="15" stroke="white" stroke-width="2"/>
+            </svg>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
+                    <span class="text-blue-200 font-semibold text-sm uppercase tracking-wider">Our Services</span>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 mt-2">SEO Services</h1>
+                    <p class="text-xl mb-6">Boost your online visibility and drive organic traffic with our data-driven SEO strategies tailored to your business goals.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="contact.html" class="btn btn-secondary bg-transparent border-2 border-white text-white hover:bg-white hover:text-indigo-600">Get Started</a>
+                        <a href="portfolio.html" class="btn bg-white text-indigo-600 hover:bg-gray-100">View Portfolio</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center relative" data-aos="fade-left">
+                    <!-- SEO Services SVG Illustration -->
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                             alt="SEO Services" 
+                             class="rounded-lg shadow-2xl max-w-full h-96 relative z-10">
+                        
+                        <!-- Decorative SVG Elements around the image -->
+                        <div class="absolute -top-5 -left-5 svg-element">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 0L23.5 16.5L40 20L23.5 23.5L20 40L16.5 23.5L0 20L16.5 16.5L20 0Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <div class="absolute -bottom-5 -right-5 svg-element" style="animation-delay: 1s;">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="20" fill="white"/>
+                            </svg>
+                        </div>
+                        <div class="absolute top-1/2 -right-8 svg-element" style="animation-delay: 0.5s;">
+                            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="30" height="30" fill="white"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SVG Wave -->
+        <div class="hero-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" class="w-full h-20">
+                <path fill="#ffffff" fill-opacity="1" d="M0,128L48,144C96,160,192,192,288,186.7C384,181,480,139,576,138.7C672,139,768,181,864,181.3C960,181,1056,139,1152,133.3C1248,128,1344,160,1392,176L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">What We Offer</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">Comprehensive SEO Services</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We provide end-to-end SEO solutions that improve your search engine rankings, increase organic traffic, and drive conversions.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-white rounded-lg p-8 border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-search text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Keyword Research</h3>
+                    <p class="text-gray-600">Identify high-value keywords that your target audience is searching for to drive relevant traffic to your website.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card bg-white rounded-lg p-8 border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-file-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">On-Page SEO</h3>
+                    <p class="text-gray-600">Optimize your website's content, meta tags, headings, and internal linking structure to improve search engine rankings.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card bg-white rounded-lg p-8 border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-link text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Link Building</h3>
+                    <p class="text-gray-600">Build high-quality backlinks from authoritative websites to boost your domain authority and search rankings.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card bg-white rounded-lg p-8 border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-code text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Technical SEO</h3>
+                    <p class="text-gray-600">Improve your website's technical aspects such as site speed, mobile-friendliness, and crawlability for better search performance.</p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-card bg-white rounded-lg p-8 border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-map-marker-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Local SEO</h3>
+                    <p class="text-gray-600">Optimize your online presence to attract more business from relevant local searches on Google and other search engines.</p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="feature-card bg-white rounded-lg p-8 border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">SEO Analytics & Reporting</h3>
+                    <p class="text-gray-600">Track and measure the performance of your SEO campaigns with detailed analytics and custom reporting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">Our Tools</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">SEO Tools We Use</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We leverage industry-leading SEO tools to analyze, optimize, and track your website's performance in search engines.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 text-center">
+                <!-- Tool 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-search text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">SEMrush</h3>
+                </div>
+                
+                <!-- Tool 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-link text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Ahrefs</h3>
+                </div>
+                
+                <!-- Tool 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fab fa-google text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Google Analytics</h3>
+                </div>
+                
+                <!-- Tool 4 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-chart-bar text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Moz Pro</h3>
+                </div>
+                
+                <!-- Tool 5 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="500">
+                    <i class="fas fa-tachometer-alt text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Google Search Console</h3>
+                </div>
+                
+                <!-- Tool 6 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="600">
+                    <i class="fas fa-sitemap text-indigo-500 text-5xl mb-4"></i>
+                    <h3 class="text-gray-800 font-medium">Screaming Frog</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">Our Process</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">How We Approach SEO</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Our proven SEO methodology is designed to deliver sustainable results and long-term growth for your business.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">1</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Research & Analysis</h3>
+                    <p class="text-gray-600">We analyze your website, competitors, and target audience to develop a tailored SEO strategy.</p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">2</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Optimization</h3>
+                    <p class="text-gray-600">We implement on-page and technical SEO improvements to enhance your website's performance.</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">3</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Content Creation</h3>
+                    <p class="text-gray-600">We develop high-quality, SEO-optimized content that engages users and attracts search engines.</p>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">4</div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Monitoring & Reporting</h3>
+                    <p class="text-gray-600">We continuously track performance, make adjustments, and provide detailed reports on your SEO progress.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">FAQ</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-2">Frequently Asked Questions</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Get answers to common questions about our SEO services and how they can benefit your business.</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item bg-white rounded-lg shadow-sm overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <button class="flex justify-between items-center w-full p-6 text-left">
+                        <span class="text-lg font-semibold text-gray-800">How long does it take to see results from SEO?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6">
+                        <p class="text-gray-600">SEO is a long-term strategy. While some improvements can be seen within a few weeks, significant results typically take 3-6 months. This timeline varies based on factors like your website's current state, competition in your industry, and the aggressiveness of your SEO strategy.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="faq-item bg-white rounded-lg shadow-sm overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <button class="flex justify-between items-center w-full p-6 text-left">
+                        <span class="text-lg font-semibold text-gray-800">What makes your SEO services different?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6">
+                        <p class="text-gray-600">We take a holistic approach to SEO that combines technical expertise, content strategy, and data-driven decision making. We focus on sustainable, white-hat techniques that build long-term value rather than quick fixes that could harm your site in the future. Additionally, we provide transparent reporting and maintain clear communication throughout the process.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item bg-white rounded-lg shadow-sm overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <button class="flex justify-between items-center w-full p-6 text-left">
+                        <span class="text-lg font-semibold text-gray-800">Do you guarantee first-page rankings?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6">
+                        <p class="text-gray-600">No reputable SEO agency can guarantee specific rankings as search algorithms are constantly evolving and rankings depend on many factors outside our control. However, we do guarantee that we'll use industry best practices, transparent methods, and proven strategies to significantly improve your search visibility and organic traffic over time.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="faq-item bg-white rounded-lg shadow-sm overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                    <button class="flex justify-between items-center w-full p-6 text-left">
+                        <span class="text-lg font-semibold text-gray-800">How do you measure SEO success?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6">
+                        <p class="text-gray-600">We track multiple metrics to measure SEO success, including organic traffic growth, keyword rankings, conversion rates, backlink quality and quantity, page load speed, bounce rate, and ultimately, return on investment. We provide regular reports that show progress across these key performance indicators.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="faq-item bg-white rounded-lg shadow-sm overflow-hidden" data-aos="fade-up" data-aos-delay="500">
+                    <button class="flex justify-between items-center w-full p-6 text-left">
+                        <span class="text-lg font-semibold text-gray-800">Do I need to sign a long-term contract?</span>
+                        <i class="fas fa-chevron-down text-indigo-600 transition-transform duration-300"></i>
+                    </button>
+                    <div class="hidden px-6 pb-6">
+                        <p class="text-gray-600">While SEO is a long-term strategy and the best results come from sustained efforts, we offer flexible engagement options. We typically recommend a minimum 6-month commitment to see meaningful results, but we don't lock clients into lengthy contracts. We're confident that our results will make you want to continue working with us.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-indigo-600 to-blue-500 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4" data-aos="fade-up">Ready to Improve Your Search Rankings?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Get in touch with our SEO experts today and discover how we can help your business grow through effective search engine optimization.</p>
+            <div class="flex flex-wrap justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
+                <a href="contact.html" class="btn bg-white text-indigo-600 hover:bg-gray-100">Get Started</a>
+                <a href="tel:+1234567890" class="btn btn-secondary bg-transparent border-2 border-white text-white hover:bg-white hover:text-indigo-600">Call Us: (123) 456-7890</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <!-- Company Info -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Vortex Marketing</h3>
+                    <p class="text-gray-400 mb-4">Innovative digital solutions to help your business thrive in the digital landscape.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Services Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="web-development.html" class="text-gray-400 hover:text-white transition-colors">Web Development</a></li>
+                        <li><a href="digital-marketing.html" class="text-gray-400 hover:text-white transition-colors">Digital Marketing</a></li>
+                        <li><a href="seo-services.html" class="text-gray-400 hover:text-white transition-colors">SEO Services</a></li>
+                        <li><a href="content-writing.html" class="text-gray-400 hover:text-white transition-colors">Content Writing</a></li>
+                        <li><a href="logo-design.html" class="text-gray-400 hover:text-white transition-colors">Logo Design</a></li>
+                        <li><a href="ui-ux-design.html" class="text-gray-400 hover:text-white transition-colors">UI/UX Design</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="portfolio.html" class="text-gray-400 hover:text-white transition-colors">Portfolio</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="careers.html" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="privacy-policy.html" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-indigo-500"></i>
+                            <span>123 Business Avenue, New York, NY 10001</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3 text-indigo-500"></i>
+                            <span>(123) 456-7890</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-indigo-500"></i>
+                            <span>info@vortexmarketing.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-clock mt-1 mr-3 text-indigo-500"></i>
+                            <span>Monday-Friday: 9am-6pm</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">&copy; 2023 Vortex Marketing. All rights reserved.</p>
+                    <div class="flex space-x-6">
+                        <a href="terms.html" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+                        <a href="privacy-policy.html" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+                        <a href="sitemap.html" class="text-gray-400 hover:text-white text-sm transition-colors">Sitemap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
